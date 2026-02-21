@@ -486,6 +486,11 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
         f.write(html)
     print(f"Saved raw HTML ({len(html)} bytes) to raw_page.html")
 
+    # Debug: analyze page structure
+    soup_debug = BeautifulSoup(html, "lxml")
+    title_tag = soup_debug.find("title")
+    print(f"Page title: {title_tag.get_text(strip=True) if title_tag else '(none)'}")
+
     # Try __NEXT_DATA__ extraction first
     next_data = extract_next_data(html)
     if next_data:
@@ -510,8 +515,31 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
                         print(f"    {k} keys: {list(v.keys())[:10]}")
                     elif isinstance(v, list):
                         print(f"    {k}: list with {len(v)} items")
+                    else:
+                        print(f"    {k}: {type(v).__name__} = {str(v)[:100]}")
             except Exception:
                 pass
+    else:
+        print("No __NEXT_DATA__ found in page")
+        # Dump all script tags for debugging
+        all_scripts = soup_debug.find_all("script")
+        print(f"  Total <script> tags: {len(all_scripts)}")
+        for i, s in enumerate(all_scripts):
+            src = s.get("src", "")
+            sid = s.get("id", "")
+            stype = s.get("type", "")
+            inline_len = len(s.string) if s.string else 0
+            desc = f"src={src}" if src else f"inline ({inline_len} chars)"
+            extras = []
+            if sid:
+                extras.append(f"id={sid}")
+            if stype:
+                extras.append(f"type={stype}")
+            print(f"  script[{i}]: {desc} {' '.join(extras)}")
+            # Show preview of inline scripts that might contain data
+            if s.string and inline_len > 100:
+                preview = s.string[:200].replace("\n", " ")
+                print(f"    preview: {preview}")
 
     # Fallback to HTML parsing
     if not all_listings:
@@ -519,6 +547,28 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
         listings = parse_listings_from_html(html)
         print(f"  Extracted {len(listings)} listings from HTML")
         all_listings.extend(listings)
+
+        if not listings:
+            # Extra debugging: show what elements ARE on the page
+            print("\n  DEBUG: Page structure analysis:")
+            for tag in ["article", "a", "div", "section"]:
+                elems = soup_debug.find_all(tag)
+                if elems:
+                    classes = set()
+                    for e in elems:
+                        for c in (e.get("class") or []):
+                            classes.add(c)
+                    top_classes = sorted(classes)[:15]
+                    print(f"    <{tag}>: {len(elems)} elements, classes: {top_classes}")
+            # Show any links that look like listing URLs
+            listing_links = [
+                a["href"] for a in soup_debug.find_all("a", href=True)
+                if "/item/" in a["href"] or "/mobility/" in a["href"]
+            ]
+            if listing_links:
+                print(f"    Found {len(listing_links)} mobility/item links:")
+                for link in listing_links[:10]:
+                    print(f"      {link}")
 
     # Handle pagination
     pagination_urls = get_pagination_urls(html, search_url)
