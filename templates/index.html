@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarFinder - Finn.no Scraper</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3a;
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #eab308;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    header h1 { font-size: 24px; font-weight: 700; }
+    header h1 span { color: var(--accent); }
+    .header-actions { display: flex; gap: 8px; }
+
+    .search-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .search-bar label { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: block; }
+    .input-row { display: flex; gap: 12px; }
+    .input-row input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+    .input-row input:focus { border-color: var(--accent); }
+    .checkbox-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--surface); }
+    .btn-sm { padding: 6px 14px; font-size: 13px; }
+
+    .status-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .status-bar.visible { display: flex; }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-done { color: var(--green); }
+    .status-error { color: var(--red); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .stat-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+
+    .table-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .table-toolbar {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .table-toolbar input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: var(--text);
+      font-size: 13px;
+      width: 240px;
+      outline: none;
+    }
+    .table-toolbar input:focus { border-color: var(--accent); }
+    .sort-controls { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+    .sort-controls select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: var(--text);
+      font-size: 13px;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+    th:hover { color: var(--text); }
+    td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59, 130, 246, 0.04); }
+    .img-thumb {
+      width: 80px; height: 56px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--bg);
+    }
+    .price { font-weight: 700; color: var(--green); white-space: nowrap; }
+    .listing-link { color: var(--accent); text-decoration: none; }
+    .listing-link:hover { text-decoration: underline; }
+    .labels { display: flex; flex-wrap: wrap; gap: 4px; }
+    .label-tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .empty-state p { margin-top: 8px; font-size: 14px; }
+    .overflow-x { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><span>Car</span>Finder</h1>
+      <div class="header-actions">
+        <button class="btn-outline btn-sm" onclick="exportData('json')">Export JSON</button>
+        <button class="btn-outline btn-sm" onclick="exportData('csv')">Export CSV</button>
+      </div>
+    </header>
+
+    <div class="search-bar">
+      <label for="search-url">Finn.no Search URL</label>
+      <div class="input-row">
+        <input id="search-url" type="url" placeholder="https://www.finn.no/mobility/search/car?..."
+               value="https://www.finn.no/mobility/search/car?fuel=4&mileage_to=150000&price_from=90000&price_to=200000&registration_class=1&variant=1.817.1433&variant=1.772.2000393&variant=1.772.2000438&year_from=2019">
+        <button id="scrape-btn" class="btn-primary" onclick="startScrape()">Scrape</button>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="fetch-details">
+        <label for="fetch-details">Also fetch detail pages (slower — gets full specs for each car)</label>
+      </div>
+    </div>
+
+    <div id="status-bar" class="status-bar">
+      <div class="spinner" id="status-spinner"></div>
+      <span id="status-text">Starting...</span>
+    </div>
+
+    <div class="stats" id="stats" style="display:none;">
+      <div class="stat-card">
+        <div class="label">Total Listings</div>
+        <div class="value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Avg Price</div>
+        <div class="value" id="stat-avg-price">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Min Price</div>
+        <div class="value" id="stat-min-price">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Max Price</div>
+        <div class="value" id="stat-max-price">-</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-toolbar">
+        <input type="text" id="filter-input" placeholder="Filter listings..." oninput="renderTable()">
+        <div class="sort-controls">
+          Sort:
+          <select id="sort-field" onchange="renderTable()">
+            <option value="price">Price</option>
+            <option value="title">Title</option>
+            <option value="id">ID</option>
+          </select>
+          <select id="sort-dir" onchange="renderTable()">
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
+          </select>
+        </div>
+      </div>
+      <div class="overflow-x">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th onclick="sortBy('title')">Title</th>
+              <th onclick="sortBy('price')">Price</th>
+              <th onclick="sortBy('location')">Location</th>
+              <th>Labels</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody id="listings-body">
+            <tr><td colspan="6">
+              <div class="empty-state">
+                <p><strong>No listings yet</strong></p>
+                <p>Enter a Finn.no search URL above and click Scrape.</p>
+              </div>
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let listings = [];
+    let currentJobId = null;
+    let pollInterval = null;
+
+    // Load existing listings on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/listings')
+        .then(r => r.json())
+        .then(data => {
+          if (data.listings && data.listings.length > 0) {
+            listings = data.listings;
+            showStats();
+            renderTable();
+          }
+        })
+        .catch(() => {});
+    });
+
+    function startScrape() {
+      const url = document.getElementById('search-url').value.trim();
+      if (!url) return alert('Please enter a search URL');
+
+      const details = document.getElementById('fetch-details').checked;
+      const btn = document.getElementById('scrape-btn');
+      btn.disabled = true;
+      btn.textContent = 'Scraping...';
+
+      showStatus('Starting scrape...', 'running');
+
+      fetch('/api/scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, details }),
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            showStatus(data.error, 'error');
+            btn.disabled = false;
+            btn.textContent = 'Scrape';
+            return;
+          }
+          currentJobId = data.job_id;
+          pollInterval = setInterval(pollStatus, 1500);
+        })
+        .catch(err => {
+          showStatus('Request failed: ' + err.message, 'error');
+          btn.disabled = false;
+          btn.textContent = 'Scrape';
+        });
+    }
+
+    function pollStatus() {
+      if (!currentJobId) return;
+
+      fetch('/api/status/' + currentJobId)
+        .then(r => r.json())
+        .then(data => {
+          showStatus(data.message, data.status);
+
+          if (data.status === 'done' || data.status === 'error') {
+            clearInterval(pollInterval);
+            pollInterval = null;
+            document.getElementById('scrape-btn').disabled = false;
+            document.getElementById('scrape-btn').textContent = 'Scrape';
+
+            if (data.status === 'done' && data.result) {
+              listings = data.result.listings || [];
+              showStats();
+              renderTable();
+            }
+          }
+        })
+        .catch(() => {});
+    }
+
+    function showStatus(message, status) {
+      const bar = document.getElementById('status-bar');
+      const text = document.getElementById('status-text');
+      const spinner = document.getElementById('status-spinner');
+
+      bar.classList.add('visible');
+      text.textContent = message;
+      text.className = '';
+
+      if (status === 'done') {
+        text.classList.add('status-done');
+        spinner.style.display = 'none';
+      } else if (status === 'error') {
+        text.classList.add('status-error');
+        spinner.style.display = 'none';
+      } else {
+        spinner.style.display = 'block';
+      }
+    }
+
+    function showStats() {
+      const stats = document.getElementById('stats');
+      stats.style.display = 'grid';
+
+      document.getElementById('stat-total').textContent = listings.length;
+
+      const prices = listings.map(l => l.price).filter(p => typeof p === 'number' && p > 0);
+      if (prices.length > 0) {
+        const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+        document.getElementById('stat-avg-price').textContent = fmtPrice(avg);
+        document.getElementById('stat-min-price').textContent = fmtPrice(min);
+        document.getElementById('stat-max-price').textContent = fmtPrice(max);
+      }
+    }
+
+    function fmtPrice(n) {
+      return n.toLocaleString('nb-NO') + ' kr';
+    }
+
+    function sortBy(field) {
+      const sel = document.getElementById('sort-field');
+      const dir = document.getElementById('sort-dir');
+      if (sel.value === field) {
+        dir.value = dir.value === 'asc' ? 'desc' : 'asc';
+      } else {
+        sel.value = field;
+        dir.value = 'asc';
+      }
+      renderTable();
+    }
+
+    function renderTable() {
+      const filter = document.getElementById('filter-input').value.toLowerCase();
+      const sortField = document.getElementById('sort-field').value;
+      const sortDir = document.getElementById('sort-dir').value;
+      const tbody = document.getElementById('listings-body');
+
+      let filtered = listings;
+      if (filter) {
+        filtered = listings.filter(l => {
+          const text = [l.title, l.location, l.id, ...(l.labels || [])].join(' ').toLowerCase();
+          return text.includes(filter);
+        });
+      }
+
+      // Sort
+      filtered = [...filtered].sort((a, b) => {
+        let va = a[sortField] ?? '';
+        let vb = b[sortField] ?? '';
+        if (typeof va === 'number' && typeof vb === 'number') {
+          return sortDir === 'asc' ? va - vb : vb - va;
+        }
+        va = String(va).toLowerCase();
+        vb = String(vb).toLowerCase();
+        return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6">
+          <div class="empty-state">
+            <p><strong>${listings.length === 0 ? 'No listings yet' : 'No matches'}</strong></p>
+            <p>${listings.length === 0 ? 'Enter a Finn.no search URL above and click Scrape.' : 'Try a different filter.'}</p>
+          </div>
+        </td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(l => {
+        const img = l.image_url
+          ? `<img class="img-thumb" src="${esc(l.image_url)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+          : '<div class="img-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px">No img</div>';
+        const price = typeof l.price === 'number' ? fmtPrice(l.price) : (l.price || '-');
+        const labels = (l.labels || []).slice(0, 5).map(t => `<span class="label-tag">${esc(t)}</span>`).join('');
+        const link = l.url ? `<a class="listing-link" href="${esc(l.url)}" target="_blank" rel="noopener">View</a>` : '-';
+
+        return `<tr>
+          <td>${img}</td>
+          <td>${esc(l.title || '-')}</td>
+          <td class="price">${price}</td>
+          <td>${esc(l.location || '-')}</td>
+          <td><div class="labels">${labels}</div></td>
+          <td>${link}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function exportData(fmt) {
+      window.open('/api/export/' + fmt, '_blank');
+    }
+  </script>
+</body>
+</html>
