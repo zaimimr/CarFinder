@@ -426,23 +426,41 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
         print("Make sure you have internet access and finn.no is reachable.")
         sys.exit(1)
 
+    # Save raw HTML for debugging
+    with open("raw_page.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Saved raw HTML ({len(html)} bytes) to raw_page.html")
+
     # Try __NEXT_DATA__ extraction first
     next_data = extract_next_data(html)
     if next_data:
         print("Found embedded JSON data (__NEXT_DATA__)")
+        # Save the raw next_data for reference
+        with open("raw_next_data.json", "w", encoding="utf-8") as f:
+            json.dump(next_data, f, ensure_ascii=False, indent=2)
+        print("  Saved raw JSON data to raw_next_data.json")
+
         listings = parse_listings_from_next_data(next_data)
         if listings:
             print(f"  Extracted {len(listings)} listings from page 1")
             all_listings.extend(listings)
-
-            # Save the raw next_data for reference
-            with open("raw_next_data.json", "w", encoding="utf-8") as f:
-                json.dump(next_data, f, ensure_ascii=False, indent=2)
-            print("  Saved raw JSON data to raw_next_data.json")
+        else:
+            print("  WARNING: __NEXT_DATA__ found but no listings extracted")
+            print("  Dumping pageProps keys for debugging:")
+            try:
+                pp = next_data.get("props", {}).get("pageProps", {})
+                print(f"    pageProps keys: {list(pp.keys())[:20]}")
+                for k, v in pp.items():
+                    if isinstance(v, dict):
+                        print(f"    {k} keys: {list(v.keys())[:10]}")
+                    elif isinstance(v, list):
+                        print(f"    {k}: list with {len(v)} items")
+            except Exception:
+                pass
 
     # Fallback to HTML parsing
     if not all_listings:
-        print("Falling back to HTML parsing...")
+        print("Trying HTML parsing...")
         listings = parse_listings_from_html(html)
         print(f"  Extracted {len(listings)} listings from HTML")
         all_listings.extend(listings)
