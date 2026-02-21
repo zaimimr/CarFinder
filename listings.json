@@ -1,7 +1,7 @@
 {
   "search_url": "https://www.finn.no/mobility/search/car?fuel=4&mileage_to=150000&price_from=90000&price_to=200000&registration_class=1&variant=1.817.1433&variant=1.772.2000393&variant=1.772.2000438&year_from=2019",
-  "scraped_at": "2026-02-21T18:39:21",
-  "total_listings": 0,
+  "scraped_at": "2026-02-21T18:45:42",
+  "total_listings": 49,
   "search_params": {
     "fuel": "electric (4)",
     "mileage_to": 150000,
@@ -27,5 +27,791 @@
       }
     ]
   },
-  "listings": []
+  "listings": [
+    {
+      "url": "https://www.finn.no/mobility/item/451365244",
+      "id": "451365244",
+      "title": "Hyundai IONIQ",
+      "price": 178500,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451365244/12107dcd-bd62-45b5-a2b1-0d1cce00d38e",
+      "labels": [
+        "2022 ∙ 66 896 km ∙ El ∙ 311 km rekkevidde",
+        "178 500 kr",
+        "Gardermoen ∙ Birger N. Haug, Hovinmovegen 6, 2060 Gardermoen",
+        "Merkeforhandler ∙ 18 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Betalt plassering"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/452074669",
+      "id": "452074669",
+      "title": "Volkswagen Golf",
+      "price": 135000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/452074669/d909ff7b-1889-4bff-8750-c4423f14f6b9",
+      "labels": [
+        "2019 ∙ 105 000 km ∙ El ∙ 300 km rekkevidde",
+        "135 000 kr",
+        "Sofiemyr ∙ BILVERDEN1 AS",
+        "Forhandler ∙ 12 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/452041310",
+      "id": "452041310",
+      "title": "Volkswagen Golf",
+      "price": 140000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/452041310/152b6a25-c600-442e-b935-68064831fc34",
+      "labels": [
+        "2019 ∙ 51 560 km ∙ El ∙ 230 km rekkevidde",
+        "140 000 kr",
+        "Sandnes",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/452046818",
+      "id": "452046818",
+      "title": "Volkswagen Golf",
+      "price": 139000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/452046818/3114d197-9570-41f6-af0f-05ea0c1b186e",
+      "labels": [
+        "2019 ∙ 113 000 km ∙ El ∙ 230 km rekkevidde",
+        "139 000 kr",
+        "Isdalstø ∙ Vest Motor AS",
+        "Forhandler ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451956206",
+      "id": "451956206",
+      "title": "Volkswagen Golf",
+      "price": 109532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451956206/c0830020-7362-4664-91b5-a1ae29b46240",
+      "labels": [
+        "2019 ∙ 120 000 km ∙ El ∙ 228 km rekkevidde",
+        "109 532 kr",
+        "Malvik",
+        "Smidig bilhandel–Privat",
+        "Smidig bilhandel",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/433836348",
+      "id": "433836348",
+      "title": "Volkswagen Golf",
+      "price": 139434,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/433836348/5c053bf9-280f-48cf-8310-46d1711a8f7d",
+      "labels": [
+        "2019 ∙ 94 000 km ∙ El ∙ 300 km rekkevidde",
+        "139 434 kr",
+        "Jaren",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451989024",
+      "id": "451989024",
+      "title": "Volkswagen Golf",
+      "price": 149000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451989024/f779580d-8b8f-4d97-bf22-e917da5a20f3",
+      "labels": [
+        "2020 ∙ 73 000 km ∙ El ∙ 300 km rekkevidde",
+        "149 000 kr",
+        "Trondheim ∙ Strada Holding AS",
+        "Forhandler ∙ 12 mnd garanti ∙ Bytterett ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/445094463",
+      "id": "445094463",
+      "title": "Volkswagen Golf",
+      "price": 109434,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/445094463/d0db5c32-a2fb-454c-88c7-113fdab0b155",
+      "labels": [
+        "2019 ∙ 87 000 km ∙ El ∙ Automat",
+        "109 434 kr",
+        "Oslo",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451959559",
+      "id": "451959559",
+      "title": "Volkswagen Golf",
+      "price": 149000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451959559/d4cc0656-48db-4b04-bce7-65e071a63d77",
+      "labels": [
+        "2019 ∙ 99 999 km ∙ El ∙ 231 km rekkevidde",
+        "149 000 kr",
+        "Heimdal ∙ ProMotion Auto AS",
+        "Forhandler ∙ 12 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451956132",
+      "id": "451956132",
+      "title": "Volkswagen Golf",
+      "price": 129000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451956132/80512d6a-18b1-4b41-8e41-23ff5bb18d8c",
+      "labels": [
+        "2019 ∙ 103 000 km ∙ El ∙ 230 km rekkevidde",
+        "129 000 kr",
+        "Overhalla ∙ AUTO + AS",
+        "Forhandler ∙ 96 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451953240",
+      "id": "451953240",
+      "title": "Volkswagen Golf",
+      "price": 119532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451953240/a9ff691a-2a5e-498e-b0be-679a6366cddf",
+      "labels": [
+        "2019 ∙ 102 726 km ∙ El ∙ 300 km rekkevidde",
+        "119 532 kr",
+        "Tananger",
+        "Smidig bilhandel–Privat",
+        "Smidig bilhandel",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451948179",
+      "id": "451948179",
+      "title": "Volkswagen Golf",
+      "price": 138900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451948179/6fa9b131-21c2-4099-b4ae-ace47850c82a",
+      "labels": [
+        "2019 ∙ 59 417 km ∙ El ∙ Automat",
+        "138 900 kr",
+        "Billingstad ∙ Mycar Billingstad",
+        "Forhandler ∙ 6 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451944609",
+      "id": "451944609",
+      "title": "Volkswagen Golf",
+      "price": 158000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451944609/70a5929c-fe23-47bd-aebc-9375f8e110f6",
+      "labels": [
+        "2019 ∙ 56 000 km ∙ El ∙ Automat",
+        "158 000 kr",
+        "Kleppe ∙ AVETTI MOTOR AS",
+        "Forhandler ∙ 12 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451938028",
+      "id": "451938028",
+      "title": "Volkswagen Golf",
+      "price": 127900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451938028/e9e9e1ed-d156-4f0d-aef3-fb0200cbbeda",
+      "labels": [
+        "2019 ∙ 65 000 km ∙ El ∙ Automat",
+        "127 900 kr",
+        "Sandnes ∙ SANDESTEEN BIL AS",
+        "Forhandler ∙ 3 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451935702",
+      "id": "451935702",
+      "title": "Volkswagen Golf",
+      "price": 129900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451935702/880afd0c-f639-4ea0-8edc-3e22be5956f3",
+      "labels": [
+        "2020 ∙ 107 884 km ∙ El ∙ 223 km rekkevidde",
+        "129 900 kr",
+        "Åros ∙ Birger N Haug AS avd Røyken",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/447025744",
+      "id": "447025744",
+      "title": "Volkswagen Golf",
+      "price": 144532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/447025744/683af8a1-a24f-4848-978a-dc9cf9ac145d",
+      "labels": [
+        "2020 ∙ 82 000 km ∙ El ∙ 229 km rekkevidde",
+        "144 532 kr",
+        "Vormedal",
+        "Smidig bilhandel–Privat ∙ Service",
+        "Smidig bilhandel",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451931555",
+      "id": "451931555",
+      "title": "Hyundai Kona",
+      "price": 168900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451931555/1555a777-48c0-4a53-ac8b-a671d6ce9c75",
+      "labels": [
+        "2020 ∙ 115 300 km ∙ El ∙ 484 km rekkevidde",
+        "168 900 kr",
+        "Oppaker ∙ Glommen Bil AS",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451929369",
+      "id": "451929369",
+      "title": "Volkswagen Golf",
+      "price": 118900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451929369/f93e0f2f-9d1b-4312-b081-6d7c17e7eef5",
+      "labels": [
+        "2019 ∙ 88 300 km ∙ El ∙ 228 km rekkevidde",
+        "118 900 kr",
+        "Kløfta ∙ Rebil",
+        "Forhandler ∙ 6 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451929288",
+      "id": "451929288",
+      "title": "Hyundai Kona",
+      "price": 179000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451929288/ef329e80-f0ca-40dc-a436-3d03eed97c10",
+      "labels": [
+        "2019 ∙ 63 041 km ∙ El ∙ Automat",
+        "179 000 kr",
+        "Halden ∙ Jensen & Scheele Outlet",
+        "Forhandler ∙ 6 mnd garanti ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451928971",
+      "id": "451928971",
+      "title": "Volkswagen Golf",
+      "price": 108900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451928971/c8d80d79-f521-4526-a40d-0de21404caee",
+      "labels": [
+        "2019 ∙ 106 200 km ∙ El ∙ 228 km rekkevidde",
+        "108 900 kr",
+        "Kløfta ∙ Rebil",
+        "Forhandler ∙ 6 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451928516",
+      "id": "451928516",
+      "title": "Hyundai Kona",
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451928516/5919d661-a04c-48a9-97d5-d2cc6b402241",
+      "labels": [
+        "2020 ∙ 53 341 km ∙ El ∙ 449 km rekkevidde",
+        "Drammen ∙ Bertel O. Steen Drammen, Åssiden",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Solgt"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451928640",
+      "id": "451928640",
+      "title": "Hyundai Kona",
+      "price": 159000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451928640/9021e006-47df-4321-9af5-1ab2d26ddbdf",
+      "labels": [
+        "2020 ∙ 89 986 km ∙ El ∙ Automat",
+        "159 000 kr",
+        "Drammen ∙ Bertel O. Steen Drammen, Åssiden",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451924687",
+      "id": "451924687",
+      "title": "Hyundai Kona",
+      "price": 189900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451924687/b6b5f7b0-4954-49b7-ae80-c3cb0808bdfe",
+      "labels": [
+        "2020 ∙ 94 103 km ∙ El ∙ 449 km rekkevidde",
+        "189 900 kr",
+        "Gardermoen ∙ Birger N. Haug AS avd Gardermoen Outlet",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/445793971",
+      "id": "445793971",
+      "title": "Volkswagen Golf",
+      "price": 109532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/445793971/ea991587-4cd4-47a4-8c88-b1265ceec501",
+      "labels": [
+        "2019 ∙ 90 000 km ∙ El ∙ 228 km rekkevidde",
+        "109 532 kr",
+        "Skollenborg",
+        "Smidig bilhandel–Privat",
+        "Smidig bilhandel",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451776382",
+      "id": "451776382",
+      "title": "Volkswagen Golf",
+      "price": 124532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451776382/1e124f08-4c2b-48dc-a461-a3ac2a2b7e93",
+      "labels": [
+        "2020 ∙ 98 454 km ∙ El ∙ 229 km rekkevidde",
+        "124 532 kr",
+        "Vuku",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451913312",
+      "id": "451913312",
+      "title": "Volkswagen Golf",
+      "price": 164900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451913312/898e362b-120a-41e1-845e-ae8040f52b0c",
+      "labels": [
+        "2019 ∙ 47 932 km ∙ El ∙ 229 km rekkevidde",
+        "164 900 kr",
+        "Rud ∙ Birger N. Haug Outlet Rud",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451911459",
+      "id": "451911459",
+      "title": "Volkswagen Golf",
+      "price": 129900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451911459/03f8d5a1-e3c9-4295-bed3-5a7bfbb1935b",
+      "labels": [
+        "2019 ∙ 91 600 km ∙ El ∙ Automat",
+        "129 900 kr",
+        "Kokstad ∙ Møller Bil Bruktbilsenter Bergen",
+        "Merkeforhandler ∙ 6 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451904649",
+      "id": "451904649",
+      "title": "Hyundai IONIQ",
+      "price": 149900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451904649/d984c697-4891-416c-9ca4-de9fa5ef4abb",
+      "labels": [
+        "2020 ∙ 54 300 km ∙ El ∙ 311 km rekkevidde",
+        "149 900 kr",
+        "Strømmen ∙ Rebil",
+        "Forhandler ∙ 12 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai IONIQ"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451890293",
+      "id": "451890293",
+      "title": "Volkswagen Golf",
+      "price": 164500,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451890293/8ab59ef1-eaa7-4ee4-93ae-6358e5d199cd",
+      "labels": [
+        "2020 ∙ 88 800 km ∙ El ∙ 231 km rekkevidde",
+        "164 500 kr",
+        "Kongsvinger ∙ Toyota Sulland Kongsvinger",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Bytterett",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451890080",
+      "id": "451890080",
+      "title": "Hyundai Kona",
+      "price": 189900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451890080/294a4808-7d61-4a5f-81a0-5c6f6f805b6e",
+      "labels": [
+        "2020 ∙ 110 378 km ∙ El ∙ 484 km rekkevidde",
+        "189 900 kr",
+        "Bø i Telemark ∙ Mobile Bø AS",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/449864189",
+      "id": "449864189",
+      "title": "Volkswagen Golf",
+      "price": 105000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/449864189/568a3551-949d-44d2-916b-981565cce632",
+      "labels": [
+        "2019 ∙ 96 000 km ∙ El ∙ 229 km rekkevidde",
+        "105 000 kr",
+        "Finnås",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451874747",
+      "id": "451874747",
+      "title": "Hyundai IONIQ",
+      "price": 119532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451874747/52275b91-89b7-4ffb-83a5-853f4f2f88d8",
+      "labels": [
+        "2019 ∙ 81 500 km ∙ El ∙ 280 km rekkevidde",
+        "119 532 kr",
+        "Skedsmokorset ∙ AutoHawk AS",
+        "Forhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai IONIQ"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451848332",
+      "id": "451848332",
+      "title": "Volkswagen Golf",
+      "price": 139532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451848332/d5a82bf6-d939-479c-b887-55acd90d2155",
+      "labels": [
+        "2019 ∙ 59 000 km ∙ El ∙ 232 km rekkevidde",
+        "139 532 kr",
+        "Oslo",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451845315",
+      "id": "451845315",
+      "title": "Hyundai IONIQ",
+      "price": 129900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451845315/aa643316-8657-4f6d-a7ab-c4f67745d480",
+      "labels": [
+        "2019 ∙ 97 000 km ∙ El ∙ 280 km rekkevidde",
+        "129 900 kr",
+        "Trondheim ∙ Okkenhaug Krogstad AS",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai IONIQ"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/449718568",
+      "id": "449718568",
+      "title": "Hyundai Kona",
+      "price": 184900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/449718568/601818ae-9d3c-477b-808b-7f79bd74f829",
+      "labels": [
+        "2021 ∙ 114 066 km ∙ El ∙ 484 km rekkevidde",
+        "184 900 kr",
+        "Hønefoss ∙ RøhneSelmer AS avd. Hønefoss",
+        "Merkeforhandler ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451829208",
+      "id": "451829208",
+      "title": "Hyundai IONIQ",
+      "price": 199900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451829208/3f95238f-40ab-4146-ace4-bc1abc91ce58",
+      "labels": [
+        "2022 ∙ 68 500 km ∙ El ∙ 311 km rekkevidde",
+        "199 900 kr",
+        "Trondheim ∙ Okkenhaug Krogstad AS",
+        "Merkeforhandler ∙ 14 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai IONIQ"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451811267",
+      "id": "451811267",
+      "title": "Volkswagen Golf",
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451811267/0114bd49-b86b-4682-9fdb-ca5bea7f9b30",
+      "labels": [
+        "2019 ∙ 88 000 km ∙ El ∙ 228 km rekkevidde",
+        "Rosendal ∙ AUTOSERVICE VEST AS",
+        "Forhandler ∙ 3 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Solgt"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451810807",
+      "id": "451810807",
+      "title": "Hyundai Kona",
+      "price": 199000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451810807/d16aab73-48f3-4d09-9149-fc79b18e0d15",
+      "labels": [
+        "2020 ∙ 63 600 km ∙ El ∙ 484 km rekkevidde",
+        "199 000 kr",
+        "Sandnes ∙ ELBILHALLEN AS",
+        "Forhandler ∙ 3 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451803385",
+      "id": "451803385",
+      "title": "Hyundai Kona",
+      "price": 169900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451803385/0ae042fc-24cb-4136-9f25-0842367b79df",
+      "labels": [
+        "2019 ∙ 74 280 km ∙ El ∙ Automat",
+        "169 900 kr",
+        "Åros ∙ Birger N Haug AS avd Røyken",
+        "Merkeforhandler",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/445183779",
+      "id": "445183779",
+      "title": "Volkswagen Golf",
+      "price": 99434,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/445183779/53c7b553-473a-40d8-bc73-44bbf7129f88",
+      "labels": [
+        "2020 ∙ 126 000 km ∙ El ∙ 231 km rekkevidde",
+        "99 434 kr",
+        "Oslo",
+        "Privat ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451797189",
+      "id": "451797189",
+      "title": "Volkswagen Golf",
+      "price": 169900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451797189/5516eb33-3622-4633-aaa4-7cdd6a073e89",
+      "labels": [
+        "2020 ∙ 45 000 km ∙ El ∙ 185 km rekkevidde",
+        "169 900 kr",
+        "Tiller ∙ Nardo Bil Sandmoen",
+        "Merkeforhandler ∙ 12 mnd garanti ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451790990",
+      "id": "451790990",
+      "title": "Hyundai Kona",
+      "price": 189000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451790990/73a72db9-2951-4d01-80ec-2e4ac24e46d0",
+      "labels": [
+        "2020 ∙ 61 000 km ∙ El ∙ 449 km rekkevidde",
+        "189 000 kr",
+        "Høvik ∙ Bilia Outlet",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Bytterett ∙ Service ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451787360",
+      "id": "451787360",
+      "title": "Hyundai Kona",
+      "price": 199000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451787360/949b0c5b-94da-4812-95a1-97ed6b155c8f",
+      "labels": [
+        "2022 ∙ 13 307 km ∙ El ∙ Automat",
+        "199 000 kr",
+        "Ski ∙ Birger N. Haug  Ski",
+        "Merkeforhandler ∙ 10 mnd garanti ∙ Service",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451787381",
+      "id": "451787381",
+      "title": "Hyundai Kona",
+      "price": 179000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451787381/01874400-424f-40fd-90b5-52e851ddc815",
+      "labels": [
+        "2019 ∙ 70 500 km ∙ El ∙ 449 km rekkevidde",
+        "179 000 kr",
+        "Drammen ∙ Sulland Bil Drammen",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Bytterett",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai Kona"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451627037",
+      "id": "451627037",
+      "title": "Volkswagen Golf",
+      "price": 148900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451627037/2c047ca0-051a-4e2f-b010-e9775959f948",
+      "labels": [
+        "2020 ∙ 71 000 km ∙ El ∙ 229 km rekkevidde",
+        "148 900 kr",
+        "Fana",
+        "Smidig bilhandel–Privat ∙ Service",
+        "Smidig bilhandel",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451782300",
+      "id": "451782300",
+      "title": "Volkswagen Golf",
+      "price": 134000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451782300/fc2fcc1e-cf70-4b53-9378-56cf0fbb5eb9",
+      "labels": [
+        "2020 ∙ 83 800 km ∙ El ∙ 231 km rekkevidde",
+        "134 000 kr",
+        "Trondheim ∙ Bilia Outlet Trondheim",
+        "Forhandler ∙ 6 mnd garanti ∙ Bytterett ∙ Service ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451755787",
+      "id": "451755787",
+      "title": "Volkswagen Golf",
+      "price": 125000,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451755787/542efc21-2d28-45fd-88a4-30ce52451286",
+      "labels": [
+        "2019 ∙ 106 000 km ∙ El ∙ 229 km rekkevidde",
+        "125 000 kr",
+        "Ulset ∙ Car4Sale AS",
+        "Forhandler ∙ 6 mnd garanti",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451752168",
+      "id": "451752168",
+      "title": "Hyundai IONIQ",
+      "price": 124900,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451752168/a6eb18e7-4a47-4fb4-aa2b-c1c4e5b95c7c",
+      "labels": [
+        "2019 ∙ 94 000 km ∙ El ∙ Automat",
+        "124 900 kr",
+        "Kokstad ∙ Mobile Kokstad AS",
+        "Merkeforhandler ∙ 6 mnd garanti ∙ Service ∙ Tilstandsrapport",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Hyundai IONIQ"
+    },
+    {
+      "url": "https://www.finn.no/mobility/item/451382818",
+      "id": "451382818",
+      "title": "Volkswagen Golf",
+      "price": 104532,
+      "image_url": "https://images.finncdn.no/dynamic/480w/item/451382818/c1c55906-7956-4010-b72f-4ee1fab2c08e",
+      "labels": [
+        "2019 ∙ 80 500 km ∙ El ∙ 229 km rekkevidde",
+        "104 532 kr",
+        "Hamar",
+        "Privat",
+        "Legg til som favoritt.",
+        "Legg til som favoritt."
+      ],
+      "location": "Volkswagen Golf"
+    }
+  ]
 }
