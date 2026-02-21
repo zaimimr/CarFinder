@@ -15,6 +15,7 @@ and Hyundai Kona listings (2019+, 90k-200k NOK, under 150k km).
 
 import argparse
 import json
+import random
 import re
 import sys
 import time
@@ -31,39 +32,84 @@ DEFAULT_SEARCH_URL = (
     "&year_from=2019"
 )
 
-HEADERS = {
-    "User-Agent": (
+# Rotate user agents to avoid fingerprinting
+USER_AGENTS = [
+    (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/131.0.0.0 Safari/537.36"
+    ),
+    (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/122.0.0.0 Safari/537.36"
+        "Chrome/131.0.0.0 Safari/537.36"
     ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "nb-NO,nb;q=0.9,no;q=0.8,nn;q=0.7,en-US;q=0.6,en;q=0.5",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "DNT": "1",
-}
+    (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/130.0.0.0 Safari/537.36"
+    ),
+    (
+        "Mozilla/5.0 (X11; Linux x86_64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/131.0.0.0 Safari/537.36"
+    ),
+]
+
+
+def _make_browser_headers(referer=None):
+    """Build headers that match a real Chrome browser session."""
+    ua = random.choice(USER_AGENTS)
+    headers = {
+        "User-Agent": ua,
+        "Accept": (
+            "text/html,application/xhtml+xml,application/xml;"
+            "q=0.9,image/avif,image/webp,image/apng,*/*;"
+            "q=0.8,application/signed-exchange;v=b3;q=0.7"
+        ),
+        "Accept-Language": "nb-NO,nb;q=0.9,no;q=0.8,nn;q=0.7,en-US;q=0.6,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Cache-Control": "max-age=0",
+        "Connection": "keep-alive",
+        "DNT": "1",
+        "Sec-CH-UA": '"Chromium";v="131", "Not_A Brand";v="24"',
+        "Sec-CH-UA-Mobile": "?0",
+        "Sec-CH-UA-Platform": '"Windows"',
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none" if referer is None else "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+    }
+    if referer:
+        headers["Referer"] = referer
+    return headers
 
 
 def create_session():
-    """Create a requests session that bypasses environment proxies."""
+    """Create a requests session that looks like a real browser."""
     session = requests.Session()
     session.trust_env = False  # Ignore proxy environment variables
-    session.headers.update(HEADERS)
+    session.headers.update(_make_browser_headers())
+    # Start with a cookie jar so finn.no sees a returning visitor
+    session.cookies.set("CONSENT", "YES+", domain=".finn.no")
     return session
 
 
-def fetch_page(session, url, retries=3, delay=2):
-    """Fetch a page with retry logic."""
+def fetch_page(session, url, retries=3, delay=2, referer=None):
+    """Fetch a page with retry logic and browser-like behavior."""
     for attempt in range(retries):
         try:
-            response = session.get(url, timeout=30)
+            # Rotate headers on each attempt to avoid fingerprinting
+            headers = _make_browser_headers(referer=referer)
+            response = session.get(url, timeout=30, headers=headers)
             response.raise_for_status()
             return response.text
         except requests.RequestException as e:
             print(f"  Attempt {attempt + 1}/{retries} failed: {e}")
             if attempt < retries - 1:
-                time.sleep(delay * (attempt + 1))
+                wait = delay * (attempt + 1) + random.uniform(0.5, 2.0)
+                time.sleep(wait)
     return None
 
 
@@ -419,8 +465,17 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
 
     print(f"Fetching search results from:\n  {search_url}\n")
 
+    # Warm up: visit the homepage first so we look like a real user
+    print("Warming up session (visiting homepage)...")
+    warmup = fetch_page(session, "https://www.finn.no/", referer=None)
+    if warmup:
+        print(f"  Homepage loaded ({len(warmup)} bytes)")
+    else:
+        print("  Homepage failed, continuing anyway...")
+    time.sleep(random.uniform(1.0, 3.0))
+
     # Fetch first page
-    html = fetch_page(session, search_url)
+    html = fetch_page(session, search_url, referer="https://www.finn.no/")
     if not html:
         print("ERROR: Failed to fetch the search page.")
         print("Make sure you have internet access and finn.no is reachable.")
@@ -471,8 +526,8 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
         print(f"\nFound {len(pagination_urls)} additional pages")
         for i, page_url in enumerate(pagination_urls, start=2):
             print(f"  Fetching page {i}...")
-            time.sleep(1.5)  # Be polite
-            page_html = fetch_page(session, page_url)
+            time.sleep(random.uniform(2.0, 5.0))  # Randomized delay
+            page_html = fetch_page(session, page_url, referer=search_url)
             if page_html:
                 if next_data:
                     page_next_data = extract_next_data(page_html)
@@ -506,7 +561,7 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
             url = listing.get("url")
             if url:
                 print(f"  [{i + 1}/{len(all_listings)}] {listing.get('title', url)}")
-                time.sleep(1)  # Be polite
+                time.sleep(random.uniform(1.5, 4.0))  # Randomized delay
                 detail = fetch_listing_detail(session, url)
                 if detail:
                     listing["detail"] = detail
