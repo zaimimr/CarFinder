@@ -2,12 +2,13 @@
 """
 Finn.no Car Listing Scraper
 
-Scrapes car listings from finn.no search results and saves detailed data
-for each item. Supports pagination and extracts data from both the
-embedded Next.js JSON and individual listing pages.
+Scrapes car listings from finn.no search results using a headless browser
+(Playwright) to handle client-side rendering, then extracts listing data
+from the rendered DOM.
 
 Usage:
     python scrape_finn.py [--url URL] [--output FILE] [--detail]
+    playwright install chromium   # first-time setup
 
 The default URL searches for electric Volkswagen e-Golf, Hyundai IONIQ,
 and Hyundai Kona listings (2019+, 90k-200k NOK, under 150k km).
@@ -19,10 +20,7 @@ import random
 import re
 import sys
 import time
-from urllib.parse import urlencode, urlparse, parse_qs, urljoin
-
-import requests
-from bs4 import BeautifulSoup
+from urllib.parse import urlencode, urlparse, parse_qs
 
 DEFAULT_SEARCH_URL = (
     "https://www.finn.no/mobility/search/car?"
@@ -32,89 +30,60 @@ DEFAULT_SEARCH_URL = (
     "&year_from=2019"
 )
 
-# Rotate user agents to avoid fingerprinting
-USER_AGENTS = [
-    (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/131.0.0.0 Safari/537.36"
-    ),
-    (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/131.0.0.0 Safari/537.36"
-    ),
-    (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/130.0.0.0 Safari/537.36"
-    ),
-    (
-        "Mozilla/5.0 (X11; Linux x86_64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/131.0.0.0 Safari/537.36"
-    ),
-]
 
+# ---------------------------------------------------------------------------
+# Playwright-based fetching (handles JS-rendered pages)
+# ---------------------------------------------------------------------------
 
-def _make_browser_headers(referer=None):
-    """Build headers that match a real Chrome browser session."""
-    ua = random.choice(USER_AGENTS)
-    headers = {
-        "User-Agent": ua,
-        "Accept": (
-            "text/html,application/xhtml+xml,application/xml;"
-            "q=0.9,image/avif,image/webp,image/apng,*/*;"
-            "q=0.8,application/signed-exchange;v=b3;q=0.7"
+def create_browser(playwright):
+    """Launch a headless Chromium browser that looks like a real user."""
+    browser = playwright.chromium.launch(headless=True)
+    context = browser.new_context(
+        user_agent=(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/131.0.0.0 Safari/537.36"
         ),
-        "Accept-Language": "nb-NO,nb;q=0.9,no;q=0.8,nn;q=0.7,en-US;q=0.6,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Cache-Control": "max-age=0",
-        "Connection": "keep-alive",
-        "DNT": "1",
-        "Sec-CH-UA": '"Chromium";v="131", "Not_A Brand";v="24"',
-        "Sec-CH-UA-Mobile": "?0",
-        "Sec-CH-UA-Platform": '"Windows"',
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none" if referer is None else "same-origin",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1",
-    }
-    if referer:
-        headers["Referer"] = referer
-    return headers
+        viewport={"width": 1920, "height": 1080},
+        locale="nb-NO",
+        timezone_id="Europe/Oslo",
+        extra_http_headers={
+            "Accept-Language": "nb-NO,nb;q=0.9,no;q=0.8,en-US;q=0.6,en;q=0.5",
+            "DNT": "1",
+        },
+    )
+    return browser, context
 
 
-def create_session():
-    """Create a requests session that looks like a real browser."""
-    session = requests.Session()
-    session.trust_env = False  # Ignore proxy environment variables
-    session.headers.update(_make_browser_headers())
-    # Start with a cookie jar so finn.no sees a returning visitor
-    session.cookies.set("CONSENT", "YES+", domain=".finn.no")
-    return session
+def fetch_rendered_page(page, url, wait_selector=None, timeout=30000):
+    """Navigate to a URL, wait for JS to render, and return the full HTML."""
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+
+        # Wait for the page to finish rendering dynamic content
+        if wait_selector:
+            try:
+                page.wait_for_selector(wait_selector, timeout=15000)
+            except Exception:
+                print(f"    Selector '{wait_selector}' not found, waiting for network idle...")
+                page.wait_for_load_state("networkidle", timeout=15000)
+        else:
+            page.wait_for_load_state("networkidle", timeout=15000)
+
+        return page.content()
+    except Exception as e:
+        print(f"  Page load error: {e}")
+        return None
 
 
-def fetch_page(session, url, retries=3, delay=2, referer=None):
-    """Fetch a page with retry logic and browser-like behavior."""
-    for attempt in range(retries):
-        try:
-            # Rotate headers on each attempt to avoid fingerprinting
-            headers = _make_browser_headers(referer=referer)
-            response = session.get(url, timeout=30, headers=headers)
-            response.raise_for_status()
-            return response.text
-        except requests.RequestException as e:
-            print(f"  Attempt {attempt + 1}/{retries} failed: {e}")
-            if attempt < retries - 1:
-                wait = delay * (attempt + 1) + random.uniform(0.5, 2.0)
-                time.sleep(wait)
-    return None
-
+# ---------------------------------------------------------------------------
+# Parsing helpers (work on fully rendered HTML)
+# ---------------------------------------------------------------------------
 
 def extract_next_data(html):
     """Extract the __NEXT_DATA__ JSON from the HTML page."""
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(html, "lxml")
     script_tag = soup.find("script", id="__NEXT_DATA__")
     if script_tag and script_tag.string:
@@ -125,8 +94,9 @@ def extract_next_data(html):
 
     # Fallback: look for inline JSON in script tags
     for script in soup.find_all("script"):
-        if script.string and '"docs"' in (script.string or ""):
-            match = re.search(r'\{.*"docs"\s*:\s*\[.*\].*\}', script.string, re.DOTALL)
+        text = script.string or ""
+        if '"docs"' in text:
+            match = re.search(r'\{.*"docs"\s*:\s*\[.*\].*\}', text, re.DOTALL)
             if match:
                 try:
                     return json.loads(match.group())
@@ -138,15 +108,11 @@ def extract_next_data(html):
 def parse_listings_from_next_data(next_data):
     """Parse car listings from the __NEXT_DATA__ JSON structure."""
     listings = []
-
-    # Navigate the Next.js data structure to find listings
-    # The structure varies but typically lives under props.pageProps
     try:
         page_props = next_data.get("props", {}).get("pageProps", {})
     except AttributeError:
         return listings
 
-    # Try common paths where listing data might be
     docs = None
     for path in [
         lambda: page_props.get("search", {}).get("docs", []),
@@ -165,7 +131,6 @@ def parse_listings_from_next_data(next_data):
             continue
 
     if not docs:
-        # Deep search for anything that looks like listings
         docs = _find_docs_recursive(next_data)
 
     if docs:
@@ -183,11 +148,9 @@ def _find_docs_recursive(data, depth=0, max_depth=8):
         return None
 
     if isinstance(data, dict):
-        # Check if this dict has a "docs" key with a list value
         for key in ["docs", "items", "ads", "results", "listings"]:
             val = data.get(key)
             if isinstance(val, list) and len(val) > 0:
-                # Check if items look like car listings
                 first = val[0]
                 if isinstance(first, dict) and any(
                     k in first
@@ -195,7 +158,6 @@ def _find_docs_recursive(data, depth=0, max_depth=8):
                 ):
                     return val
 
-        # Recurse into dict values
         for val in data.values():
             result = _find_docs_recursive(val, depth + 1, max_depth)
             if result:
@@ -214,19 +176,16 @@ def extract_listing_fields(doc):
     """Extract all useful fields from a listing document."""
     listing = {}
 
-    # ID / finnkode
     for key in ["id", "ad_id", "finnkode", "code"]:
         if key in doc:
             listing["id"] = str(doc[key])
             break
 
-    # Title / heading
     for key in ["heading", "title", "ad_title", "name"]:
         if key in doc:
             listing["title"] = doc[key]
             break
 
-    # Price
     price = doc.get("price", doc.get("main_price", doc.get("price_total")))
     if isinstance(price, dict):
         listing["price"] = price.get("amount", price.get("value"))
@@ -234,16 +193,14 @@ def extract_listing_fields(doc):
     elif price is not None:
         listing["price"] = price
 
-    # Location
     location = doc.get("location", doc.get("ad_location"))
     if isinstance(location, str):
         listing["location"] = location
     elif isinstance(location, dict):
         listing["location"] = location.get("name", location.get("city", ""))
     elif isinstance(location, list):
-        listing["location"] = ", ".join(str(l) for l in location if l)
+        listing["location"] = ", ".join(str(loc) for loc in location if loc)
 
-    # Image
     image = doc.get("image", doc.get("images", doc.get("main_image")))
     if isinstance(image, dict):
         listing["image_url"] = image.get("url", image.get("src", ""))
@@ -256,7 +213,6 @@ def extract_listing_fields(doc):
     elif isinstance(image, str):
         listing["image_url"] = image
 
-    # URL / link
     for key in ["canonical_url", "ad_link", "url", "link"]:
         if key in doc:
             url_val = doc[key]
@@ -268,21 +224,17 @@ def extract_listing_fields(doc):
     if "url" not in listing and "id" in listing:
         listing["url"] = f"https://www.finn.no/mobility/item/{listing['id']}"
 
-    # Timestamp
     for key in ["timestamp", "published", "created", "ad_published"]:
         if key in doc:
             listing["published"] = doc[key]
             break
 
-    # Labels / key info (year, mileage, fuel, etc.)
     labels = doc.get("labels", doc.get("key_info", doc.get("extras", [])))
     if isinstance(labels, list):
         listing["labels"] = labels
 
-    # Trade type
     listing["trade_type"] = doc.get("trade_type", doc.get("ad_type", ""))
 
-    # Extract any remaining flat key-value pairs that might be useful
     known_keys = {
         "year", "mileage", "fuel", "gearbox", "transmission",
         "body_type", "colour", "color", "seats", "doors",
@@ -295,7 +247,6 @@ def extract_listing_fields(doc):
         if key in doc and doc[key] is not None:
             listing[key] = doc[key]
 
-    # Capture all remaining fields under "extras"
     captured_keys = set(listing.keys()) | {
         "image", "images", "main_image", "canonical_url", "ad_link",
         "link", "heading", "title", "ad_title", "name", "price",
@@ -314,18 +265,24 @@ def extract_listing_fields(doc):
     return listing
 
 
-def parse_listings_from_html(html):
-    """Fallback: parse listings directly from HTML using BeautifulSoup."""
+def parse_listings_from_rendered_html(html):
+    """Parse listings from fully rendered HTML using BeautifulSoup."""
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(html, "lxml")
     listings = []
 
-    # Try various known selectors for finn.no search results
+    # Try multiple selectors — finn.no changes these periodically
     ad_elements = (
         soup.find_all("article", attrs={"data-testid": True})
         or soup.find_all("a", class_=re.compile(r"ads__unit"))
         or soup.find_all("article", class_=re.compile(r"sf-search-ad|ads-ad"))
         or soup.find_all("div", class_=re.compile(r"ads__unit"))
     )
+
+    # Broader fallback: any <a> linking to /mobility/item/
+    if not ad_elements:
+        ad_elements = soup.find_all("a", href=re.compile(r"/mobility/item/\d+"))
 
     for elem in ad_elements:
         listing = {}
@@ -337,7 +294,6 @@ def parse_listings_from_html(html):
             if not href.startswith("http"):
                 href = f"https://www.finn.no{href}"
             listing["url"] = href
-            # Extract finnkode from URL
             id_match = re.search(r"/(\d+)(?:\?|$)", href)
             if id_match:
                 listing["id"] = id_match.group(1)
@@ -380,176 +336,189 @@ def parse_listings_from_html(html):
     return listings
 
 
-def get_pagination_urls(html, base_url):
-    """Extract pagination URLs from the search results page."""
-    soup = BeautifulSoup(html, "lxml")
-    urls = set()
-
-    # Look for pagination links
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if "page=" in href:
-            if not href.startswith("http"):
-                href = urljoin(base_url, href)
-            urls.add(href)
-
-    # Also check __NEXT_DATA__ for pagination info
-    next_data = extract_next_data(html)
-    if next_data:
-        page_props = next_data.get("props", {}).get("pageProps", {})
-        # Look for pagination metadata
-        for key in ["search", "searchResult", "data", "initialData"]:
-            section = page_props.get(key, {})
-            if isinstance(section, dict):
-                total_pages = section.get("total_pages", section.get("pageCount", 0))
-                total_count = section.get("total_count", section.get("totalCount", 0))
-                if total_pages > 1:
-                    parsed = urlparse(base_url)
-                    params = parse_qs(parsed.query)
-                    for page in range(2, total_pages + 1):
-                        params["page"] = [str(page)]
-                        new_query = urlencode(params, doseq=True)
-                        urls.add(f"{parsed.scheme}://{parsed.netloc}{parsed.path}?{new_query}")
-                    break
-
-    return sorted(urls)
+def extract_listings_via_js(page):
+    """Try to extract listing data directly from the page's JS runtime."""
+    try:
+        # Some SPAs store data in window.__DATA__ or similar globals
+        data = page.evaluate("""() => {
+            // Try common data stores
+            const candidates = [
+                window.__NEXT_DATA__,
+                window.__DATA__,
+                window.__INITIAL_STATE__,
+                window.__APP_STATE__,
+                window.__PRELOADED_STATE__,
+            ];
+            for (const c of candidates) {
+                if (c) return JSON.parse(JSON.stringify(c));
+            }
+            return null;
+        }""")
+        if data:
+            return data
+    except Exception:
+        pass
+    return None
 
 
-def fetch_listing_detail(session, url):
-    """Fetch an individual listing page for more detailed data."""
-    html = fetch_page(session, url)
-    if not html:
-        return {}
-
-    detail = {}
-
-    # Try __NEXT_DATA__ first
-    next_data = extract_next_data(html)
-    if next_data:
-        page_props = next_data.get("props", {}).get("pageProps", {})
-        # The ad detail is often at the top level of pageProps
-        ad = page_props.get("ad", page_props.get("item", page_props))
-        if isinstance(ad, dict):
-            detail = {k: v for k, v in ad.items() if v is not None}
-
-    # Also parse from HTML for key-value pairs
-    soup = BeautifulSoup(html, "lxml")
-
-    # Look for specification tables / definition lists
-    for dl in soup.find_all("dl"):
-        dts = dl.find_all("dt")
-        dds = dl.find_all("dd")
-        for dt, dd in zip(dts, dds):
-            key = dt.get_text(strip=True)
-            value = dd.get_text(strip=True)
-            if key and value:
-                detail[key] = value
-
-    # Look for key-value pairs in structured elements
-    for table in soup.find_all("table"):
-        for row in table.find_all("tr"):
-            cells = row.find_all(["th", "td"])
-            if len(cells) == 2:
-                key = cells[0].get_text(strip=True)
-                value = cells[1].get_text(strip=True)
-                if key and value:
-                    detail[key] = value
-
-    return detail
-
+# ---------------------------------------------------------------------------
+# Main scraper
+# ---------------------------------------------------------------------------
 
 def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
-    """Main scraper function."""
-    session = create_session()
+    """Main scraper function using Playwright headless browser."""
+    from playwright.sync_api import sync_playwright
+
     all_listings = []
 
     print(f"Fetching search results from:\n  {search_url}\n")
 
-    # Warm up: visit the homepage first so we look like a real user
-    print("Warming up session (visiting homepage)...")
-    warmup = fetch_page(session, "https://www.finn.no/", referer=None)
-    if warmup:
-        print(f"  Homepage loaded ({len(warmup)} bytes)")
-    else:
-        print("  Homepage failed, continuing anyway...")
-    time.sleep(random.uniform(1.0, 3.0))
+    with sync_playwright() as pw:
+        browser, context = create_browser(pw)
+        page = context.new_page()
 
-    # Fetch first page
-    html = fetch_page(session, search_url, referer="https://www.finn.no/")
-    if not html:
-        print("ERROR: Failed to fetch the search page.")
-        print("Make sure you have internet access and finn.no is reachable.")
-        sys.exit(1)
+        # Warm up: visit the homepage first
+        print("Warming up session (visiting homepage)...")
+        try:
+            page.goto("https://www.finn.no/", wait_until="domcontentloaded", timeout=20000)
+            page.wait_for_load_state("networkidle", timeout=10000)
+            print(f"  Homepage loaded ({len(page.content())} bytes)")
+        except Exception as e:
+            print(f"  Homepage warmup failed: {e}, continuing...")
+        time.sleep(random.uniform(1.0, 3.0))
 
-    # Save raw HTML for debugging
-    with open("raw_page.html", "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"Saved raw HTML ({len(html)} bytes) to raw_page.html")
+        # Accept cookies/consent if a dialog appears
+        try:
+            accept_btn = page.query_selector(
+                'button:has-text("Godta"), button:has-text("Accept"), '
+                'button:has-text("OK"), button[id*="accept"], '
+                'button[data-testid*="accept"]'
+            )
+            if accept_btn:
+                accept_btn.click()
+                print("  Accepted cookie consent")
+                time.sleep(1)
+        except Exception:
+            pass
 
-    # Debug: analyze page structure
-    soup_debug = BeautifulSoup(html, "lxml")
-    title_tag = soup_debug.find("title")
-    print(f"Page title: {title_tag.get_text(strip=True) if title_tag else '(none)'}")
+        # Fetch the search page
+        print("Loading search results...")
+        html = fetch_rendered_page(
+            page, search_url,
+            wait_selector='a[href*="/mobility/item/"]',
+            timeout=30000,
+        )
 
-    # Try __NEXT_DATA__ extraction first
-    next_data = extract_next_data(html)
-    if next_data:
-        print("Found embedded JSON data (__NEXT_DATA__)")
-        # Save the raw next_data for reference
-        with open("raw_next_data.json", "w", encoding="utf-8") as f:
-            json.dump(next_data, f, ensure_ascii=False, indent=2)
-        print("  Saved raw JSON data to raw_next_data.json")
+        if not html:
+            print("ERROR: Failed to load the search page.")
+            browser.close()
+            sys.exit(1)
 
-        listings = parse_listings_from_next_data(next_data)
-        if listings:
-            print(f"  Extracted {len(listings)} listings from page 1")
+        # Save raw HTML for debugging
+        with open("raw_page.html", "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"Saved raw HTML ({len(html)} bytes) to raw_page.html")
+
+        # Debug info
+        from bs4 import BeautifulSoup
+        soup_debug = BeautifulSoup(html, "lxml")
+        title_tag = soup_debug.find("title")
+        print(f"Page title: {title_tag.get_text(strip=True) if title_tag else '(none)'}")
+        script_count = len(soup_debug.find_all("script"))
+        print(f"Script tags: {script_count}")
+        link_count = len(soup_debug.find_all("a", href=re.compile(r"/mobility/item/")))
+        print(f"Listing links found: {link_count}")
+
+        # Strategy 1: Try extracting data from JS runtime
+        js_data = extract_listings_via_js(page)
+        if js_data:
+            print("Found data in JS runtime")
+            with open("raw_next_data.json", "w", encoding="utf-8") as f:
+                json.dump(js_data, f, ensure_ascii=False, indent=2)
+            print("  Saved JS data to raw_next_data.json")
+            listings = parse_listings_from_next_data(js_data)
+            if listings:
+                print(f"  Extracted {len(listings)} listings from JS data")
+                all_listings.extend(listings)
+
+        # Strategy 2: Try __NEXT_DATA__ in the HTML
+        if not all_listings:
+            next_data = extract_next_data(html)
+            if next_data:
+                print("Found __NEXT_DATA__ in HTML")
+                with open("raw_next_data.json", "w", encoding="utf-8") as f:
+                    json.dump(next_data, f, ensure_ascii=False, indent=2)
+                listings = parse_listings_from_next_data(next_data)
+                if listings:
+                    print(f"  Extracted {len(listings)} listings")
+                    all_listings.extend(listings)
+                else:
+                    print("  __NEXT_DATA__ found but no listings parsed")
+                    try:
+                        pp = next_data.get("props", {}).get("pageProps", {})
+                        print(f"    pageProps keys: {list(pp.keys())[:20]}")
+                    except Exception:
+                        pass
+
+        # Strategy 3: Parse the rendered HTML DOM
+        if not all_listings:
+            print("Parsing rendered HTML...")
+            listings = parse_listings_from_rendered_html(html)
+            print(f"  Extracted {len(listings)} listings from HTML")
             all_listings.extend(listings)
-        else:
-            print("  WARNING: __NEXT_DATA__ found but no listings extracted")
-            print("  Dumping pageProps keys for debugging:")
+
+        # Strategy 4: Use Playwright to scrape directly from DOM
+        if not all_listings:
+            print("Trying direct DOM extraction via Playwright...")
             try:
-                pp = next_data.get("props", {}).get("pageProps", {})
-                print(f"    pageProps keys: {list(pp.keys())[:20]}")
-                for k, v in pp.items():
-                    if isinstance(v, dict):
-                        print(f"    {k} keys: {list(v.keys())[:10]}")
-                    elif isinstance(v, list):
-                        print(f"    {k}: list with {len(v)} items")
-                    else:
-                        print(f"    {k}: {type(v).__name__} = {str(v)[:100]}")
-            except Exception:
-                pass
-    else:
-        print("No __NEXT_DATA__ found in page")
-        # Dump all script tags for debugging
-        all_scripts = soup_debug.find_all("script")
-        print(f"  Total <script> tags: {len(all_scripts)}")
-        for i, s in enumerate(all_scripts):
-            src = s.get("src", "")
-            sid = s.get("id", "")
-            stype = s.get("type", "")
-            inline_len = len(s.string) if s.string else 0
-            desc = f"src={src}" if src else f"inline ({inline_len} chars)"
-            extras = []
-            if sid:
-                extras.append(f"id={sid}")
-            if stype:
-                extras.append(f"type={stype}")
-            print(f"  script[{i}]: {desc} {' '.join(extras)}")
-            # Show preview of inline scripts that might contain data
-            if s.string and inline_len > 100:
-                preview = s.string[:200].replace("\n", " ")
-                print(f"    preview: {preview}")
+                dom_listings = page.evaluate("""() => {
+                    const items = [];
+                    // Find all links to listing pages
+                    const links = document.querySelectorAll('a[href*="/mobility/item/"]');
+                    for (const link of links) {
+                        const item = {};
+                        const href = link.getAttribute('href');
+                        item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
+                        const idMatch = href.match(/\\/([0-9]+)/);
+                        if (idMatch) item.id = idMatch[1];
 
-    # Fallback to HTML parsing
-    if not all_listings:
-        print("Trying HTML parsing...")
-        listings = parse_listings_from_html(html)
-        print(f"  Extracted {len(listings)} listings from HTML")
-        all_listings.extend(listings)
+                        // Get text content from the link's container
+                        const container = link.closest('article') || link;
+                        const title = container.querySelector('h2, h3, h4');
+                        if (title) item.title = title.textContent.trim();
 
-        if not listings:
-            # Extra debugging: show what elements ARE on the page
+                        // Look for price text
+                        const allText = container.textContent;
+                        const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
+                        if (priceMatch) {
+                            item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
+                        }
+
+                        // Get image
+                        const img = container.querySelector('img');
+                        if (img) item.image_url = img.src || img.dataset.src || '';
+
+                        // Collect label text
+                        const spans = container.querySelectorAll('span, p');
+                        const labels = [];
+                        for (const s of spans) {
+                            const t = s.textContent.trim();
+                            if (t && t.length < 100) labels.push(t);
+                        }
+                        if (labels.length) item.labels = labels;
+
+                        if (item.id || item.title) items.push(item);
+                    }
+                    return items;
+                }""")
+                if dom_listings:
+                    print(f"  Extracted {len(dom_listings)} listings via DOM")
+                    all_listings.extend(dom_listings)
+            except Exception as e:
+                print(f"  DOM extraction failed: {e}")
+
+        if not all_listings:
+            # Final debug dump
             print("\n  DEBUG: Page structure analysis:")
             for tag in ["article", "a", "div", "section"]:
                 elems = soup_debug.find_all(tag)
@@ -560,7 +529,6 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
                             classes.add(c)
                     top_classes = sorted(classes)[:15]
                     print(f"    <{tag}>: {len(elems)} elements, classes: {top_classes}")
-            # Show any links that look like listing URLs
             listing_links = [
                 a["href"] for a in soup_debug.find_all("a", href=True)
                 if "/item/" in a["href"] or "/mobility/" in a["href"]
@@ -570,25 +538,63 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
                 for link in listing_links[:10]:
                     print(f"      {link}")
 
-    # Handle pagination
-    pagination_urls = get_pagination_urls(html, search_url)
-    if pagination_urls:
-        print(f"\nFound {len(pagination_urls)} additional pages")
-        for i, page_url in enumerate(pagination_urls, start=2):
-            print(f"  Fetching page {i}...")
-            time.sleep(random.uniform(2.0, 5.0))  # Randomized delay
-            page_html = fetch_page(session, page_url, referer=search_url)
-            if page_html:
-                if next_data:
-                    page_next_data = extract_next_data(page_html)
-                    if page_next_data:
-                        page_listings = parse_listings_from_next_data(page_next_data)
-                    else:
-                        page_listings = parse_listings_from_html(page_html)
-                else:
-                    page_listings = parse_listings_from_html(page_html)
-                print(f"    Got {len(page_listings)} listings")
-                all_listings.extend(page_listings)
+        # Handle pagination
+        pagination_urls = _get_pagination_urls_from_page(page, search_url, html)
+        if pagination_urls:
+            print(f"\nFound {len(pagination_urls)} additional pages")
+            for i, page_url in enumerate(pagination_urls, start=2):
+                print(f"  Fetching page {i}...")
+                time.sleep(random.uniform(2.0, 5.0))
+                page_html = fetch_rendered_page(
+                    page, page_url,
+                    wait_selector='a[href*="/mobility/item/"]',
+                )
+                if page_html:
+                    page_listings = parse_listings_from_rendered_html(page_html)
+                    if not page_listings:
+                        # Try DOM extraction
+                        try:
+                            page_listings = page.evaluate("""() => {
+                                const items = [];
+                                const links = document.querySelectorAll('a[href*="/mobility/item/"]');
+                                for (const link of links) {
+                                    const item = {};
+                                    const href = link.getAttribute('href');
+                                    item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
+                                    const idMatch = href.match(/\\/([0-9]+)/);
+                                    if (idMatch) item.id = idMatch[1];
+                                    const container = link.closest('article') || link;
+                                    const title = container.querySelector('h2, h3, h4');
+                                    if (title) item.title = title.textContent.trim();
+                                    const allText = container.textContent;
+                                    const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
+                                    if (priceMatch) item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
+                                    const img = container.querySelector('img');
+                                    if (img) item.image_url = img.src || '';
+                                    if (item.id || item.title) items.push(item);
+                                }
+                                return items;
+                            }""")
+                        except Exception:
+                            page_listings = []
+                    print(f"    Got {len(page_listings)} listings")
+                    all_listings.extend(page_listings)
+
+        # Optionally fetch detailed data for each listing
+        if fetch_details and all_listings:
+            print("\nFetching detailed data for each listing...")
+            for i, listing in enumerate(all_listings):
+                url = listing.get("url")
+                if url:
+                    print(f"  [{i + 1}/{len(all_listings)}] {listing.get('title', url)}")
+                    time.sleep(random.uniform(1.5, 4.0))
+                    detail_html = fetch_rendered_page(page, url)
+                    if detail_html:
+                        detail = _parse_detail_page(detail_html)
+                        if detail:
+                            listing["detail"] = detail
+
+        browser.close()
 
     # Deduplicate by ID
     seen_ids = set()
@@ -603,18 +609,6 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
     all_listings = unique_listings
 
     print(f"\nTotal unique listings: {len(all_listings)}")
-
-    # Optionally fetch detailed data for each listing
-    if fetch_details and all_listings:
-        print("\nFetching detailed data for each listing...")
-        for i, listing in enumerate(all_listings):
-            url = listing.get("url")
-            if url:
-                print(f"  [{i + 1}/{len(all_listings)}] {listing.get('title', url)}")
-                time.sleep(random.uniform(1.5, 4.0))  # Randomized delay
-                detail = fetch_listing_detail(session, url)
-                if detail:
-                    listing["detail"] = detail
 
     # Save results
     output = {
@@ -643,7 +637,6 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
     print(f"\nResults saved to {output_file}")
     print(f"Total items: {len(all_listings)}")
 
-    # Print summary
     if all_listings:
         print("\n--- Sample listing ---")
         sample = all_listings[0]
@@ -652,6 +645,75 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
                 print(f"  {key}: {val}")
 
     return output
+
+
+def _get_pagination_urls_from_page(page, base_url, html):
+    """Extract pagination URLs from the rendered page."""
+    urls = set()
+
+    # Try to get pagination links from the DOM
+    try:
+        links = page.evaluate("""() => {
+            const links = [];
+            document.querySelectorAll('a[href*="page="]').forEach(a => {
+                links.push(a.href);
+            });
+            return links;
+        }""")
+        for link in links:
+            urls.add(link)
+    except Exception:
+        pass
+
+    # Also check __NEXT_DATA__ for pagination info
+    next_data = extract_next_data(html)
+    if next_data:
+        try:
+            page_props = next_data.get("props", {}).get("pageProps", {})
+            for key in ["search", "searchResult", "data", "initialData"]:
+                section = page_props.get(key, {})
+                if isinstance(section, dict):
+                    total_pages = section.get("total_pages", section.get("pageCount", 0))
+                    if total_pages > 1:
+                        parsed = urlparse(base_url)
+                        params = parse_qs(parsed.query)
+                        for pg in range(2, total_pages + 1):
+                            params["page"] = [str(pg)]
+                            new_query = urlencode(params, doseq=True)
+                            urls.add(f"{parsed.scheme}://{parsed.netloc}{parsed.path}?{new_query}")
+                        break
+        except Exception:
+            pass
+
+    return sorted(urls)
+
+
+def _parse_detail_page(html):
+    """Parse a detail page for key-value car specs."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "lxml")
+    detail = {}
+
+    for dl in soup.find_all("dl"):
+        dts = dl.find_all("dt")
+        dds = dl.find_all("dd")
+        for dt, dd in zip(dts, dds):
+            key = dt.get_text(strip=True)
+            value = dd.get_text(strip=True)
+            if key and value:
+                detail[key] = value
+
+    for table in soup.find_all("table"):
+        for row in table.find_all("tr"):
+            cells = row.find_all(["th", "td"])
+            if len(cells) == 2:
+                key = cells[0].get_text(strip=True)
+                value = cells[1].get_text(strip=True)
+                if key and value:
+                    detail[key] = value
+
+    return detail
 
 
 def main():
