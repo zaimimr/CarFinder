@@ -72,7 +72,7 @@ costs a fraction of what it finds.
 | Item | Threshold | Cost to you |
 |---|---|---|
 | Tyres | under 4 mm tread | 8 000-12 000 for a set |
-| Winter tyres | not included | 8 000-15 000 |
+| Winter tyres | not included | 8 000-15 000, more on alloys |
 | Brake discs | lipped or corroded | 6 000-12 000 |
 | 12V battery | over 4 years old | 2 000-3 000 |
 | Charge cable | Type 2 missing | 3 000-5 000 |
@@ -81,6 +81,29 @@ costs a fraction of what it finds.
 EVs eat brake discs through corrosion rather than wear, because regenerative
 braking means the friction brakes are rarely used. NAF flags this specifically
 for used EVs. Always look at the discs.
+
+## Included extras cut both ways
+
+A listing that includes winter tyres on alloy rims, a full service, or a
+transferable brand-dealer warranty is not comparable to one that does not.
+Before calling a car overpriced, subtract what it includes:
+
+| Extra | Worth |
+|---|---|
+| Winter tyres on alloys | 10 000-15 000 |
+| Winter tyres on steel | 6 000-9 000 |
+| Brand-dealer warranty (merkeforhandler) vs independent | 5 000-15 000 |
+| Fresh service done | 3 000-6 000 |
+| Second key | 3 000-5 000 |
+| Delivery/transport across the country | 3 000-6 000 |
+
+Two cars 10 000 kr apart where the dearer one includes winter alloys are the
+same price. Missing this makes you argue for a discount you have already been
+given, which sellers notice.
+
+When a car is fairly priced, stop asking for money and start asking for
+extras. Sellers protect the headline number far harder than they protect a
+service, an SOH report or free delivery.
 
 ## Market timing
 

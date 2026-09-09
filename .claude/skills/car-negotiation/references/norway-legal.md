@@ -36,15 +36,19 @@ The buyer pays it, and it must be settled before the ownership transfer can
 complete digitally. EVs lost their exemption on 1 March 2022 and now pay the
 same rate as other passenger cars, banded by weight and age.
 
-For a car in the Atto 3's class expect roughly 4 500-5 000 kr. Confirm the
-exact figure with Statens vegvesen's calculator for the specific vehicle
-rather than assuming.
+Measured on actual Atto 3 listings in September 2026: **7 505 kr**. An earlier
+version of this file guessed 4 500-5 000 and was wrong by about 2 500 kr per
+car. Read the real figure off the listing's spec table rather than estimating.
 
-**Always negotiate the total including this fee.** "299 000 pluss omreg" and
-"299 000 levert" are about 5 000 kr apart, and sellers routinely quote the
-first while buyers hear the second. Asking for the total price is also a clean,
-non-confrontational opening question that surfaces whether the seller is being
-straight with you.
+Some listings show "Fritatt", meaning no fee is charged on that car. Worth
+asking about, since it is worth 7 505 kr against an otherwise identical car.
+
+**Check how the listing states the price.** On finn.no car listings the
+headline price normally already includes omregistrering: the spec table shows
+"Pris eksl. omreg." plus "Omregistrering", and they sum to the headline. So
+the sticker is usually already the delivered price, and demanding "totalpris
+levert" as if it were a concession reveals you have not read the listing.
+Confirm it, do not fight over it.
 
 ## The contract
 

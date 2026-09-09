@@ -1,128 +1,88 @@
 # BYD Atto 3 - forhandlingsnotat
 
-Oppdatert: 2026-09-10. Tall fra `atto_listings.json`.
-Metode og kilder: `.claude/skills/car-negotiation/`.
+Mål: [461004495](https://www.finn.no/mobility/item/461004495) - STAR BIL AS, Skien.
+Oppdatert 2026-09-10. Metode: `.claude/skills/car-negotiation/`.
 
-## Rettelse fra forrige versjon
+## Bilen
 
-Research viser at tre av kravene ikke er krav i det hele tatt:
+| | |
+|---|---|
+| År / km | 2024 / 10 250 km (lavest i utvalget) |
+| Pris | 309 000 kr, hvorav 7 505 kr omregistrering |
+| Farge | Grå metallic |
+| Selger | STAR BIL AS, Skien. **Merkeforhandler**, 48 mnd garanti |
+| Garanti | Nybilgaranti i behold |
+| Dekk | **Sommer- og vinterdekk, begge på aluminiumsfelg** |
+| Utstyr | Elektrisk sete, helskinn, navigasjon, ryggekamera, p-sensor foran og bak, adaptiv cruise, nøkkelløs start, oppvarmede forseter |
+| Liggetid | 9 dager |
 
-- **Panoramataket er standard på alle Atto 3**, både Comfort og Design, og det
-  er et elektrisk skyvetak med solskjerm. Ikke fast glass.
-- **Elektrisk 6-veis førersete er standard**, også på Comfort.
-- **Varmepumpe er standard.**
-- **Blade-batteri er i hver eneste Atto 3 som er bygget.**
+## Rettelse: bilen er bedre priset enn modellen min sa
 
-Forskjellen mellom "Panorama glasstak" og "Panorama soltak" i annonsene er
-altså forhandlernes egen ordbruk, ikke en reell forskjell på bilene.
+Verdimodellen i `atto_finder.py` regnet kr/km på tvers av både 2023- og
+2024-biler, og blandet dermed modellår inn i kilometerprisen. Tallet
+"+28 000 mot marked" var et artefakt.
 
-Forrige versjon av filteret kastet ut tre biler på dette grunnlaget og
-rangerte den dyreste bilen i utvalget øverst. Det var feil begge veier.
+Riktig sammenligning er de tre 2024-bilene mot hverandre:
 
-De eneste utstyrsforskjellene som faktisk følger utstyrsnivå er **elektrisk
-bakluke** og **15,6" roterbar skjerm**, begge på Design.
+| Bil | Pris | Km | Vinterdekk | Garanti |
+|---|---|---|---|---|
+| 467995724 | 299 000 | 27 903 | Nei | Rest av nybilgaranti |
+| 473616501 | 299 500 | 12 193 | Nei | Ikke oppgitt |
+| **461004495** | **309 000** | **10 250** | **Ja, på alufelg** | Nybilgaranti, merkeforhandler |
 
-## Utvalget
+Vinterdekk på alufelg er verdt 10 000-15 000 kr. Trekker man fra 12 000 ligger
+461004495 reelt på **297 000**, altså billigst av de tre og ikke dyrest.
 
-| Annonse | År | Km | Pris | Selger | Mot marked |
-|---|---|---|---|---|---|
-| [475873426](https://www.finn.no/mobility/item/475873426) | 2023 | 20 600 | 245 000 | Forhandler | **+54 500** |
-| [473616501](https://www.finn.no/mobility/item/473616501) | 2024 | 12 193 | 299 500 | Forhandler | +30 500 |
-| [461004495](https://www.finn.no/mobility/item/461004495) | 2024 | 10 250 | 309 000 | Forhandler | +28 000 |
-| [467995724](https://www.finn.no/mobility/item/467995724) | 2024 | 27 903 | 299 000 | Forhandler | **-26 000** |
-| [474820076](https://www.finn.no/mobility/item/474820076) | 2024 | 27 518 | - | Privat | Leasingovertakelse |
+Bilen er med andre ord riktig priset. Det betyr lite rom på pris, og at
+strategien bør flyttes fra kroner til ytelser.
 
-"Mot marked" er avviket fra forventet pris gitt kilometerstand i dette
-utvalget. Positivt = billig for det du får.
+## Strategi: be om ytelser, ikke avslag
 
-## Hva tabellen faktisk sier
+Forhandlere beskytter overskriftsprisen langt hardere enn de beskytter en
+service eller en transport. På en bil som allerede er riktig priset er det
+her pengene faktisk ligger.
 
-De tre 2024-bilene ligger innenfor 10 000 kr av hverandre, men spenner fra
-10 250 til 27 903 km. Markedet priser altså ikke kilometerstand i dette
-båndet i det hele tatt. Det er den eneste virkelige brekkstangen vi har.
+1. **Batterirapport (SOH)** fra BYD-verksted. Koster dem lite, verdt mye.
+2. **Fersk service** før overlevering. 3 000-6 000 kr.
+3. **Transport fra Skien.** 3 000-6 000 kr.
+4. **Ekstra nøkkel** hvis det bare følger én. 3 000-5 000 kr.
+5. **Full lading og komplette ladekabler** ved henting.
 
-**467995724** er svakeste kjøp i utvalget til tross for best utstyrsscore. Den
-har nesten tre ganger kilometerstanden til de to andre 2024-bilene og koster
-det samme. Utstyrsscore er ikke verdi.
+Samlet 10 000-20 000 kr i reell verdi uten å røre prisen. Forhandleren kan si
+ja uten å innrømme at prisen var feil, og det er nettopp derfor det virker.
 
-**475873426** til 245 000 er sterkeste kjøp. Én modellårgang eldre, men 54 000
-kr billigere enn 2024-bilene og med færre km enn 467995724. Forhandlerkjøp gir
-i tillegg fem års reklamasjonsrett med to års omvendt bevisbyrde, som på en
-elbil er verdt reelle penger.
+## Prisstige
 
-## Posisjon
-
-Alle fem er forhandlerbiler eller leasing. Ingen privatselgere i utvalget.
-Med fire reelle alternativer er posisjonen **brukbar, ikke sterk**: full
-Ackerman-stige er for aggressiv, komprimert stige er riktig.
-
-## Liggetid: den viktigste nye opplysningen
-
-Hentet fra "Sist oppdatert" på annonsene, 2026-09-10:
-
-| Annonse | Pris | Mot marked | Liggetid |
-|---|---|---|---|
-| 475873426 | 245 000 | +54 500 | **2 dager** |
-| 461004495 | 309 000 | +28 000 | 9 dager |
-| 473616501 | 299 500 | +30 500 | 16 dager |
-| 467995724 | 299 000 | **-26 000** | **66 dager** |
-
-Dette snur planen. Den dyreste bilen i utvalget er også den som har ligget
-klart lengst. 66 dager er inne i "aged inventory"-båndet der forhandlere
-betaler renter på lagerbilen og begynner å gi seg. Markedet har allerede
-fortalt den forhandleren at prisen er feil.
-
-Merk forbeholdet: "Sist oppdatert" er sist endret, ikke publiseringsdato. 66
-dager er derfor et minimum. For de ferske annonsene kan en endring for to
-dager siden like gjerne bety at selgeren nettopp har satt ned prisen.
-
-## To spor
-
-**Spor A - 467995724 (299 000, 66 dager, best utstyrt).**
-Dette er bilen å presse. Design-nivå med elektrisk bakluke, soltak eksplisitt
-oppgitt, 360-kamera, skinn. Ligger 26 000 over marked og har ikke blitt solgt
-på over to måneder.
+Brukes bare hvis de avviser ytelsene. Komprimert Ackerman. 9 dagers liggetid
+gir lite tidspress, så åpningen kan ikke være for lav:
 
 | Trinn | Bud |
 |---|---|
-| Åpning | 249 000 |
-| 2 | 264 000 |
-| 3 | 271 000 |
-| Siste | 273 400 |
+| Åpning | 289 000 |
+| 2 | 297 000 |
+| 3 | 301 000 |
+| Siste | 302 400 |
 
-Realistisk landing 268 000-273 000 levert. Argumentet er kilometerstanden mot
-de to andre 2024-bilene, og at bilen har ligget siden juli.
+Realistisk landing **299 000-303 000** levert, eller full pris med ytelsene
+over. Walk-away 305 000 hvis de ikke gir noe som helst.
 
-**Spor B - 475873426 (245 000, 2 dager, best kjøp).**
-Ikke press denne. Den ligger allerede 54 500 under marked og har vært ute i to
-dager. En bil som er så billig og så fersk blir solgt, og da til noen andre.
+## Brekkstenger
 
-Be om totalpris og batterirapport, tilby 238 000 én gang, og ta 245 000 hvis
-de sier nei. Å tape denne bilen for 7 000 kr ville vært det dyreste utfallet i
-hele denne prosessen.
+- **467995724** ligger på 299 000 og har ligget ute i **66 dager**. Konkret,
+  billigere, kan nevnes ved finnkode. Sterkeste enkeltbrekkstang vi har.
+- **475873426** ligger på 245 000, er fritatt omregistrering og har også
+  vinterdekk. 64 000 kr billigere, én årgang eldre. Reelt alternativ.
+- **Evo-facelift** presser 2024-restverdier.
+- **Månedsslutt** nærmer seg. Tim siste bud mot det.
 
-Dette er verdt å si rett ut: "forhandle hardest mulig" er feil strategi på en
-bil som allerede er priset under marked i et tynt utvalg. Hard forhandling
-hører hjemme på spor A, der selgeren har vist på 66 dager at han tar feil.
+## Ikke bruk disse
 
-## Argumenter som holder
-
-1. **Kilometerstand mot pris.** Tabellen over, uten adjektiver.
-2. **Evo-facelift.** 2025-modellen presser 2023/2024-restverdier ned. Reelt.
-3. **Omregistrering**, ca. 4 500-5 000 kr. Krev totalpris levert.
-4. **Batterirapport (SOH).** Billig for forhandler å skaffe. Nekt = argument.
-5. **Dekk og bremseskiver.** Elbiler ruster ned skivene fordi de knapt brukes.
-   Under 4 mm mønster er 8 000-12 000 kr.
-6. **Liggetid.** Samles inn automatisk av `atto_finder.py`. Over 60 dager er
-   brekkstang, over 90 er god brekkstang.
-
-## Argumenter som ikke holder
-
-- At bilen mangler soltak, elektrisk sete eller varmepumpe. Alt er standard,
-  og å påstå noe annet ødelegger troverdigheten i resten av argumentasjonen.
-- Vage trusler om å gå. Nevn finnkode, eller la være.
+- Soltak, elektrisk sete, varmepumpe, Blade-batteri. Alt er standard.
+- "Totalpris levert". De 309 000 inkluderer allerede omregistrering. Å kreve
+  det som en innrømmelse viser at annonsen ikke er lest.
+- Kilometerstand. Denne bilen har lavest km i utvalget. Argumentet peker
+  motsatt vei.
 
 ## Status
 
-Ingen meldinger er sendt. Utkast ligger i `SELLER_QUESTIONS.md` og maler i
-`.claude/skills/car-negotiation/references/templates.md`.
+Ingen meldinger sendt. Utkast i `SELLER_MESSAGES.md`.
