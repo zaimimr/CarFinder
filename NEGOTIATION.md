@@ -56,7 +56,56 @@ Alle fem er forhandlerbiler eller leasing. Ingen privatselgere i utvalget.
 Med fire reelle alternativer er posisjonen **brukbar, ikke sterk**: full
 Ackerman-stige er for aggressiv, komprimert stige er riktig.
 
-## Målpriser
+## Liggetid: den viktigste nye opplysningen
+
+Hentet fra "Sist oppdatert" på annonsene, 2026-09-10:
+
+| Annonse | Pris | Mot marked | Liggetid |
+|---|---|---|---|
+| 475873426 | 245 000 | +54 500 | **2 dager** |
+| 461004495 | 309 000 | +28 000 | 9 dager |
+| 473616501 | 299 500 | +30 500 | 16 dager |
+| 467995724 | 299 000 | **-26 000** | **66 dager** |
+
+Dette snur planen. Den dyreste bilen i utvalget er også den som har ligget
+klart lengst. 66 dager er inne i "aged inventory"-båndet der forhandlere
+betaler renter på lagerbilen og begynner å gi seg. Markedet har allerede
+fortalt den forhandleren at prisen er feil.
+
+Merk forbeholdet: "Sist oppdatert" er sist endret, ikke publiseringsdato. 66
+dager er derfor et minimum. For de ferske annonsene kan en endring for to
+dager siden like gjerne bety at selgeren nettopp har satt ned prisen.
+
+## To spor
+
+**Spor A - 467995724 (299 000, 66 dager, best utstyrt).**
+Dette er bilen å presse. Design-nivå med elektrisk bakluke, soltak eksplisitt
+oppgitt, 360-kamera, skinn. Ligger 26 000 over marked og har ikke blitt solgt
+på over to måneder.
+
+| Trinn | Bud |
+|---|---|
+| Åpning | 249 000 |
+| 2 | 264 000 |
+| 3 | 271 000 |
+| Siste | 273 400 |
+
+Realistisk landing 268 000-273 000 levert. Argumentet er kilometerstanden mot
+de to andre 2024-bilene, og at bilen har ligget siden juli.
+
+**Spor B - 475873426 (245 000, 2 dager, best kjøp).**
+Ikke press denne. Den ligger allerede 54 500 under marked og har vært ute i to
+dager. En bil som er så billig og så fersk blir solgt, og da til noen andre.
+
+Be om totalpris og batterirapport, tilby 238 000 én gang, og ta 245 000 hvis
+de sier nei. Å tape denne bilen for 7 000 kr ville vært det dyreste utfallet i
+hele denne prosessen.
+
+Dette er verdt å si rett ut: "forhandle hardest mulig" er feil strategi på en
+bil som allerede er priset under marked i et tynt utvalg. Hard forhandling
+hører hjemme på spor A, der selgeren har vist på 66 dager at han tar feil.
+
+## Målpriser (utgått, se To spor over)
 
 **Hovedmål, 475873426 (245 000):**
 

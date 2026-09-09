@@ -133,6 +133,33 @@ def parse_price(listing):
     return listing.get("price")
 
 
+NB_MONTHS = {
+    "januar": 1, "februar": 2, "mars": 3, "april": 4, "mai": 5, "juni": 6,
+    "juli": 7, "august": 8, "september": 9, "oktober": 10, "november": 11,
+    "desember": 12,
+}
+
+
+def _days_since(date_text):
+    """Days between a Norwegian '8. september 2026' date and today."""
+    if not date_text:
+        return None
+    match = re.match(r"(\d{1,2})\.\s*(\w+)\s*(\d{4})", date_text.strip())
+    if not match:
+        return None
+    day, month_name, year = match.groups()
+    month = NB_MONTHS.get(month_name.lower())
+    if not month:
+        return None
+    import datetime
+
+    try:
+        then = datetime.date(int(year), month, int(day))
+    except ValueError:
+        return None
+    return (datetime.date.today() - then).days
+
+
 def _price_from_specs(specs):
     for key in ("Totalpris", "Pris eksl. omreg.", "Pris"):
         value = specs.get(key)
@@ -185,6 +212,14 @@ def parse_detail(html):
                 price = int(digits)
                 break
 
+    listed_updated = ""
+    page_text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+    match = re.search(
+        r"Sist oppdatert\s*:?\s*(\d{1,2}\.\s*\w+\s*\d{4})", page_text
+    )
+    if match:
+        listed_updated = match.group(1).strip()
+
     seller = ""
     for heading in soup.find_all(["h2", "h3"]):
         if "selger" in _norm(heading.get_text()):
@@ -199,6 +234,7 @@ def parse_detail(html):
         "description": description,
         "seller": seller,
         "price": price,
+        "last_updated": listed_updated,
     }
 
 
@@ -442,7 +478,8 @@ def rank(candidates):
             if "privat" in _norm(str(listing.get("labels", "")))
             else "ukjent"
         )
-        listing["last_edited"] = (detail.get("specs") or {}).get("Sist endret", "")
+        listing["last_updated"] = detail.get("last_updated", "")
+        listing["days_listed"] = _days_since(listing["last_updated"])
         listing["battery"] = specs.get("Batterikapasitet", "")
         listing["range_wltp"] = next(
             (v for k, v in specs.items() if k.startswith("Rekkevidde")), ""
@@ -514,6 +551,11 @@ def format_slack(ranked, previous_ids=None):
             + (
                 f" · {car['value_gap']:+,} kr vs market".replace(",", " ")
                 if car.get("value_gap") is not None
+                else ""
+            )
+            + (
+                f" · listed {car['days_listed']}d"
+                if car.get("days_listed") is not None
                 else ""
             )
             + "\n"

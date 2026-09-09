@@ -16,6 +16,7 @@ and Hyundai Kona listings (2019+, 90k-200k NOK, under 150k km).
 
 import argparse
 import json
+import math
 import random
 import re
 import sys
@@ -29,6 +30,8 @@ DEFAULT_SEARCH_URL = (
     "&variant=1.817.1433&variant=1.772.2000393&variant=1.772.2000438"
     "&year_from=2019"
 )
+
+RESULTS_PER_PAGE = 50
 
 
 # ---------------------------------------------------------------------------
@@ -401,10 +404,11 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
         except Exception:
             pass
 
-        # Fetch the search page
-        print("Loading search results...")
+        # Fetch page 1
+        page1_url = _build_page_urls(search_url, 1)[0]
+        print("Loading search results (page 1)...")
         html = fetch_rendered_page(
-            page, search_url,
+            page, page1_url,
             wait_selector='a[href*="/mobility/item/"]',
             timeout=30000,
         )
@@ -414,171 +418,41 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
             browser.close()
             sys.exit(1)
 
-        # Save raw HTML for debugging
-        with open("raw_page.html", "w", encoding="utf-8") as f:
-            f.write(html)
-        print(f"Saved raw HTML ({len(html)} bytes) to raw_page.html")
+        # Extract total hit count to determine pagination
+        total_hits = _extract_total_hits(page)
+        if total_hits:
+            total_pages = math.ceil(total_hits / RESULTS_PER_PAGE)
+            print(f"Found {total_hits} treff across {total_pages} page(s)")
+        else:
+            total_pages = 1
+            print("Could not determine total hits, scraping page 1 only")
 
-        # Debug info
-        from bs4 import BeautifulSoup
-        soup_debug = BeautifulSoup(html, "lxml")
-        title_tag = soup_debug.find("title")
-        print(f"Page title: {title_tag.get_text(strip=True) if title_tag else '(none)'}")
-        script_count = len(soup_debug.find_all("script"))
-        print(f"Script tags: {script_count}")
-        link_count = len(soup_debug.find_all("a", href=re.compile(r"/mobility/item/")))
-        print(f"Listing links found: {link_count}")
+        # Extract listings from page 1
+        page_listings = _extract_listings_from_page(page, html)
+        print(f"  Page 1: {len(page_listings)} listings")
+        all_listings.extend(page_listings)
 
-        # Strategy 1: Try extracting data from JS runtime
-        js_data = extract_listings_via_js(page)
-        if js_data:
-            print("Found data in JS runtime")
-            with open("raw_next_data.json", "w", encoding="utf-8") as f:
-                json.dump(js_data, f, ensure_ascii=False, indent=2)
-            print("  Saved JS data to raw_next_data.json")
-            listings = parse_listings_from_next_data(js_data)
-            if listings:
-                print(f"  Extracted {len(listings)} listings from JS data")
-                all_listings.extend(listings)
+        # Fetch remaining pages
+        for page_num in range(2, total_pages + 1):
+            page_url = _build_page_urls(search_url, page_num)[-1]
+            print(f"\nFetching page {page_num}/{total_pages}...")
+            time.sleep(random.uniform(2.0, 5.0))
+            html = fetch_rendered_page(
+                page, page_url,
+                wait_selector='a[href*="/mobility/item/"]',
+                timeout=30000,
+            )
+            if not html:
+                print(f"  Failed to load page {page_num}, skipping")
+                continue
 
-        # Strategy 2: Try __NEXT_DATA__ in the HTML
-        if not all_listings:
-            next_data = extract_next_data(html)
-            if next_data:
-                print("Found __NEXT_DATA__ in HTML")
-                with open("raw_next_data.json", "w", encoding="utf-8") as f:
-                    json.dump(next_data, f, ensure_ascii=False, indent=2)
-                listings = parse_listings_from_next_data(next_data)
-                if listings:
-                    print(f"  Extracted {len(listings)} listings")
-                    all_listings.extend(listings)
-                else:
-                    print("  __NEXT_DATA__ found but no listings parsed")
-                    try:
-                        pp = next_data.get("props", {}).get("pageProps", {})
-                        print(f"    pageProps keys: {list(pp.keys())[:20]}")
-                    except Exception:
-                        pass
+            page_listings = _extract_listings_from_page(page, html)
+            print(f"  Page {page_num}: {len(page_listings)} listings")
+            all_listings.extend(page_listings)
 
-        # Strategy 3: Parse the rendered HTML DOM
-        if not all_listings:
-            print("Parsing rendered HTML...")
-            listings = parse_listings_from_rendered_html(html)
-            print(f"  Extracted {len(listings)} listings from HTML")
-            all_listings.extend(listings)
-
-        # Strategy 4: Use Playwright to scrape directly from DOM
-        if not all_listings:
-            print("Trying direct DOM extraction via Playwright...")
-            try:
-                dom_listings = page.evaluate("""() => {
-                    const items = [];
-                    // Find all links to listing pages
-                    const links = document.querySelectorAll('a[href*="/mobility/item/"]');
-                    for (const link of links) {
-                        const item = {};
-                        const href = link.getAttribute('href');
-                        item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
-                        const idMatch = href.match(/\\/([0-9]+)/);
-                        if (idMatch) item.id = idMatch[1];
-
-                        // Get text content from the link's container
-                        const container = link.closest('article') || link;
-                        const title = container.querySelector('h2, h3, h4');
-                        if (title) item.title = title.textContent.trim();
-
-                        // Look for price text
-                        const allText = container.textContent;
-                        const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
-                        if (priceMatch) {
-                            item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
-                        }
-
-                        // Get image
-                        const img = container.querySelector('img');
-                        if (img) item.image_url = img.src || img.dataset.src || '';
-
-                        // Collect label text
-                        const spans = container.querySelectorAll('span, p');
-                        const labels = [];
-                        for (const s of spans) {
-                            const t = s.textContent.trim();
-                            if (t && t.length < 100) labels.push(t);
-                        }
-                        if (labels.length) item.labels = labels;
-
-                        if (item.id || item.title) items.push(item);
-                    }
-                    return items;
-                }""")
-                if dom_listings:
-                    print(f"  Extracted {len(dom_listings)} listings via DOM")
-                    all_listings.extend(dom_listings)
-            except Exception as e:
-                print(f"  DOM extraction failed: {e}")
-
-        if not all_listings:
-            # Final debug dump
-            print("\n  DEBUG: Page structure analysis:")
-            for tag in ["article", "a", "div", "section"]:
-                elems = soup_debug.find_all(tag)
-                if elems:
-                    classes = set()
-                    for e in elems:
-                        for c in (e.get("class") or []):
-                            classes.add(c)
-                    top_classes = sorted(classes)[:15]
-                    print(f"    <{tag}>: {len(elems)} elements, classes: {top_classes}")
-            listing_links = [
-                a["href"] for a in soup_debug.find_all("a", href=True)
-                if "/item/" in a["href"] or "/mobility/" in a["href"]
-            ]
-            if listing_links:
-                print(f"    Found {len(listing_links)} mobility/item links:")
-                for link in listing_links[:10]:
-                    print(f"      {link}")
-
-        # Handle pagination
-        pagination_urls = _get_pagination_urls_from_page(page, search_url, html)
-        if pagination_urls:
-            print(f"\nFound {len(pagination_urls)} additional pages")
-            for i, page_url in enumerate(pagination_urls, start=2):
-                print(f"  Fetching page {i}...")
-                time.sleep(random.uniform(2.0, 5.0))
-                page_html = fetch_rendered_page(
-                    page, page_url,
-                    wait_selector='a[href*="/mobility/item/"]',
-                )
-                if page_html:
-                    page_listings = parse_listings_from_rendered_html(page_html)
-                    if not page_listings:
-                        # Try DOM extraction
-                        try:
-                            page_listings = page.evaluate("""() => {
-                                const items = [];
-                                const links = document.querySelectorAll('a[href*="/mobility/item/"]');
-                                for (const link of links) {
-                                    const item = {};
-                                    const href = link.getAttribute('href');
-                                    item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
-                                    const idMatch = href.match(/\\/([0-9]+)/);
-                                    if (idMatch) item.id = idMatch[1];
-                                    const container = link.closest('article') || link;
-                                    const title = container.querySelector('h2, h3, h4');
-                                    if (title) item.title = title.textContent.trim();
-                                    const allText = container.textContent;
-                                    const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
-                                    if (priceMatch) item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
-                                    const img = container.querySelector('img');
-                                    if (img) item.image_url = img.src || '';
-                                    if (item.id || item.title) items.push(item);
-                                }
-                                return items;
-                            }""")
-                        except Exception:
-                            page_listings = []
-                    print(f"    Got {len(page_listings)} listings")
-                    all_listings.extend(page_listings)
+            if not page_listings:
+                print("  No listings found, stopping pagination")
+                break
 
         # Optionally fetch detailed data for each listing
         if fetch_details and all_listings:
@@ -647,45 +521,109 @@ def scrape_finn(search_url, fetch_details=False, output_file="listings.json"):
     return output
 
 
-def _get_pagination_urls_from_page(page, base_url, html):
-    """Extract pagination URLs from the rendered page."""
-    urls = set()
+def _extract_listings_from_page(page, html):
+    """Try all extraction strategies on a single page and return listings."""
+    listings = []
 
-    # Try to get pagination links from the DOM
+    # Strategy 1: JS runtime data
+    js_data = extract_listings_via_js(page)
+    if js_data:
+        listings = parse_listings_from_next_data(js_data)
+        if listings:
+            return listings
+
+    # Strategy 2: __NEXT_DATA__ in HTML
+    next_data = extract_next_data(html)
+    if next_data:
+        listings = parse_listings_from_next_data(next_data)
+        if listings:
+            return listings
+
+    # Strategy 3: Rendered HTML parsing
+    listings = parse_listings_from_rendered_html(html)
+    if listings:
+        return listings
+
+    # Strategy 4: Direct DOM extraction via Playwright
     try:
-        links = page.evaluate("""() => {
-            const links = [];
-            document.querySelectorAll('a[href*="page="]').forEach(a => {
-                links.push(a.href);
-            });
-            return links;
+        dom_listings = page.evaluate("""() => {
+            const items = [];
+            const links = document.querySelectorAll('a[href*="/mobility/item/"]');
+            for (const link of links) {
+                const item = {};
+                const href = link.getAttribute('href');
+                item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
+                const idMatch = href.match(/\\/([0-9]+)/);
+                if (idMatch) item.id = idMatch[1];
+                const container = link.closest('article') || link;
+                const title = container.querySelector('h2, h3, h4');
+                if (title) item.title = title.textContent.trim();
+                const allText = container.textContent;
+                const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
+                if (priceMatch) item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
+                const img = container.querySelector('img');
+                if (img) item.image_url = img.src || img.dataset.src || '';
+                if (item.id || item.title) items.push(item);
+            }
+            return items;
         }""")
-        for link in links:
-            urls.add(link)
+        if dom_listings:
+            return dom_listings
     except Exception:
         pass
 
-    # Also check __NEXT_DATA__ for pagination info
-    next_data = extract_next_data(html)
-    if next_data:
-        try:
-            page_props = next_data.get("props", {}).get("pageProps", {})
-            for key in ["search", "searchResult", "data", "initialData"]:
-                section = page_props.get(key, {})
-                if isinstance(section, dict):
-                    total_pages = section.get("total_pages", section.get("pageCount", 0))
-                    if total_pages > 1:
-                        parsed = urlparse(base_url)
-                        params = parse_qs(parsed.query)
-                        for pg in range(2, total_pages + 1):
-                            params["page"] = [str(pg)]
-                            new_query = urlencode(params, doseq=True)
-                            urls.add(f"{parsed.scheme}://{parsed.netloc}{parsed.path}?{new_query}")
-                        break
-        except Exception:
-            pass
+    return []
 
-    return sorted(urls)
+
+def _extract_total_hits(page):
+    """Extract the total result count (e.g. '516 treff') from the page."""
+
+    try:
+        hit_count = page.evaluate("""() => {
+            // Target the specific element next to #results-heading
+            const heading = document.getElementById('results-heading');
+            if (heading) {
+                const sibling = heading.nextElementSibling;
+                if (sibling) {
+                    const numSpan = sibling.querySelector('span.font-normal');
+                    if (numSpan) {
+                        const num = parseInt(numSpan.textContent.replace(/\\s/g, ''));
+                        if (!isNaN(num)) return num;
+                    }
+                }
+            }
+
+            // Fallback: walk the DOM for "N treff" text
+            const walker = document.createTreeWalker(
+                document.body, NodeFilter.SHOW_TEXT, null, false
+            );
+            while (walker.nextNode()) {
+                const text = walker.currentNode.textContent.trim();
+                const match = text.match(/(\\d[\\d\\s]*)\\s*treff/i);
+                if (match) {
+                    return parseInt(match[1].replace(/\\s/g, ''));
+                }
+            }
+            return null;
+        }""")
+        return hit_count
+    except Exception:
+        return None
+
+
+def _build_page_urls(base_url, total_pages):
+    """Build a list of URLs for pages 1 through total_pages."""
+    parsed = urlparse(base_url)
+    params = parse_qs(parsed.query)
+    # Remove existing page param
+    params.pop("page", None)
+
+    urls = []
+    for pg in range(1, total_pages + 1):
+        params["page"] = [str(pg)]
+        new_query = urlencode(params, doseq=True)
+        urls.append(f"{parsed.scheme}://{parsed.netloc}{parsed.path}?{new_query}")
+    return urls
 
 
 def _parse_detail_page(html):

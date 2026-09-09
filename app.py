@@ -28,17 +28,16 @@ def _run_scrape(job_id, search_url, fetch_details):
 
     try:
         from playwright.sync_api import sync_playwright
-        from scrape_finn import (
-            create_browser,
-            extract_listings_via_js,
-            extract_next_data,
-            fetch_rendered_page,
-            parse_listings_from_next_data,
-            parse_listings_from_rendered_html,
-            _get_pagination_urls_from_page,
-        )
+        import math
         import random
-        import re
+        from scrape_finn import (
+            RESULTS_PER_PAGE,
+            create_browser,
+            fetch_rendered_page,
+            _build_page_urls,
+            _extract_listings_from_page,
+            _extract_total_hits,
+        )
 
         all_listings = []
 
@@ -67,10 +66,11 @@ def _run_scrape(job_id, search_url, fetch_details):
             except Exception:
                 pass
 
-            # Load search page
-            _jobs[job_id]["message"] = "Loading search results..."
+            # Fetch page 1
+            page1_url = _build_page_urls(search_url, 1)[0]
+            _jobs[job_id]["message"] = "Loading search results (page 1)..."
             html = fetch_rendered_page(
-                page, search_url,
+                page, page1_url,
                 wait_selector='a[href*="/mobility/item/"]',
                 timeout=30000,
             )
@@ -81,91 +81,36 @@ def _run_scrape(job_id, search_url, fetch_details):
                 browser.close()
                 return
 
-            # Strategy 1: JS runtime
+            # Determine total pages from "X treff"
+            total_hits = _extract_total_hits(page)
+            if total_hits:
+                total_pages = math.ceil(total_hits / RESULTS_PER_PAGE)
+            else:
+                total_pages = 1
+
+            # Extract listings from page 1
             _jobs[job_id]["message"] = "Extracting listing data..."
-            js_data = extract_listings_via_js(page)
-            if js_data:
-                listings = parse_listings_from_next_data(js_data)
-                if listings:
-                    all_listings.extend(listings)
+            page_listings = _extract_listings_from_page(page, html)
+            all_listings.extend(page_listings)
+            _jobs[job_id]["message"] = (
+                f"Found {len(all_listings)} listings on page 1"
+                f" ({total_hits or '?'} treff, {total_pages} pages)"
+            )
 
-            # Strategy 2: __NEXT_DATA__
-            if not all_listings:
-                next_data = extract_next_data(html)
-                if next_data:
-                    listings = parse_listings_from_next_data(next_data)
-                    if listings:
-                        all_listings.extend(listings)
-
-            # Strategy 3: Rendered HTML
-            if not all_listings:
-                listings = parse_listings_from_rendered_html(html)
-                all_listings.extend(listings)
-
-            # Strategy 4: Direct DOM
-            if not all_listings:
-                try:
-                    dom_listings = page.evaluate("""() => {
-                        const items = [];
-                        const links = document.querySelectorAll('a[href*="/mobility/item/"]');
-                        for (const link of links) {
-                            const item = {};
-                            const href = link.getAttribute('href');
-                            item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
-                            const idMatch = href.match(/\\/([0-9]+)/);
-                            if (idMatch) item.id = idMatch[1];
-                            const container = link.closest('article') || link;
-                            const title = container.querySelector('h2, h3, h4');
-                            if (title) item.title = title.textContent.trim();
-                            const allText = container.textContent;
-                            const priceMatch = allText.match(/([\\d\\s]+)\\s*kr/);
-                            if (priceMatch) item.price = parseInt(priceMatch[1].replace(/\\s/g, ''));
-                            const img = container.querySelector('img');
-                            if (img) item.image_url = img.src || '';
-                            if (item.id || item.title) items.push(item);
-                        }
-                        return items;
-                    }""")
-                    if dom_listings:
-                        all_listings.extend(dom_listings)
-                except Exception:
-                    pass
-
-            _jobs[job_id]["message"] = f"Found {len(all_listings)} listings on page 1"
-
-            # Pagination
-            pagination_urls = _get_pagination_urls_from_page(page, search_url, html)
-            if pagination_urls:
-                for i, page_url in enumerate(pagination_urls, start=2):
-                    _jobs[job_id]["message"] = f"Fetching page {i}/{len(pagination_urls) + 1}..."
-                    time.sleep(random.uniform(2.0, 4.0))
-                    page_html = fetch_rendered_page(
-                        page, page_url,
-                        wait_selector='a[href*="/mobility/item/"]',
-                    )
-                    if page_html:
-                        page_listings = parse_listings_from_rendered_html(page_html)
-                        if not page_listings:
-                            try:
-                                page_listings = page.evaluate("""() => {
-                                    const items = [];
-                                    const links = document.querySelectorAll('a[href*="/mobility/item/"]');
-                                    for (const link of links) {
-                                        const item = {};
-                                        const href = link.getAttribute('href');
-                                        item.url = href.startsWith('http') ? href : 'https://www.finn.no' + href;
-                                        const idMatch = href.match(/\\/([0-9]+)/);
-                                        if (idMatch) item.id = idMatch[1];
-                                        const container = link.closest('article') || link;
-                                        const title = container.querySelector('h2, h3, h4');
-                                        if (title) item.title = title.textContent.trim();
-                                        if (item.id || item.title) items.push(item);
-                                    }
-                                    return items;
-                                }""")
-                            except Exception:
-                                page_listings = []
-                        all_listings.extend(page_listings)
+            # Fetch remaining pages
+            for page_num in range(2, total_pages + 1):
+                page_url = _build_page_urls(search_url, page_num)[-1]
+                _jobs[job_id]["message"] = f"Fetching page {page_num}/{total_pages}..."
+                time.sleep(random.uniform(2.0, 4.0))
+                page_html = fetch_rendered_page(
+                    page, page_url,
+                    wait_selector='a[href*="/mobility/item/"]',
+                )
+                if page_html:
+                    page_listings = _extract_listings_from_page(page, page_html)
+                    all_listings.extend(page_listings)
+                if not page_listings:
+                    break
 
             # Fetch details if requested
             if fetch_details and all_listings:
