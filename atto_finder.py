@@ -45,6 +45,15 @@ MIN_YEAR = 2023
 MAX_YEAR = 2024
 MAX_MILEAGE = 30000
 
+OPENING_ROOF_PATTERNS = [
+    r"soltak",
+    r"skyvetak",
+    r"[åa]pningsbar\w*\s*(panorama|tak|glasstak)",
+    r"panorama\w*\s*tak[^|]{0,20}(kan [åa]pnes|[åa]pningsbar)",
+]
+
+FIXED_ROOF_PATTERNS = [r"panorama\w*\s*glasstak", r"fast\w*\s*glasstak"]
+
 ELECTRIC_SEAT_PATTERNS = [
     r"elektri\w*[^|]{0,30}(f[øo]rersete|forsete|sete|seter)",
     r"(f[øo]rersete|forseter|seter)[^|]{0,30}elektri",
@@ -53,7 +62,8 @@ ELECTRIC_SEAT_PATTERNS = [
 ]
 
 SCORED_EQUIPMENT = [
-    ("Panoramatak", 10, ["panoramatak", "panoramaglasstak", "soltak"]),
+    ("Panorama soltak (kan åpnes)", 14, ["soltak", "skyvetak"]),
+    ("Panorama glasstak (fast)", 4, ["panorama glasstak", "panoramaglasstak", "panoramatak"]),
     ("Varmepumpe", 10, ["varmepumpe"]),
     ("Skinnseter", 6, ["skinnseter", "skinninteriør", "seter, skinn"]),
     ("Setevarme foran", 6, ["setevarme", "seter, oppvarmede", "oppvarmede seter"]),
@@ -213,8 +223,22 @@ def score_listing(detail):
     has_electric_seat = any(
         re.search(pattern, haystack) for pattern in ELECTRIC_SEAT_PATTERNS
     )
+    has_opening_roof = any(
+        re.search(pattern, haystack) for pattern in OPENING_ROOF_PATTERNS
+    )
+    has_fixed_roof = any(
+        re.search(pattern, haystack) for pattern in FIXED_ROOF_PATTERNS
+    )
 
-    return score, matched, missing, flags, has_electric_seat
+    return (
+        score,
+        matched,
+        missing,
+        flags,
+        has_electric_seat,
+        has_opening_roof,
+        has_fixed_roof,
+    )
 
 
 def scrape_candidates():
@@ -379,7 +403,15 @@ def rank(candidates):
     ranked = []
     for listing in candidates:
         detail = listing.get("detail") or {}
-        score, matched, missing, flags, electric_seat = score_listing(detail)
+        (
+            score,
+            matched,
+            missing,
+            flags,
+            electric_seat,
+            opening_roof,
+            fixed_roof,
+        ) = score_listing(detail)
 
         specs = detail.get("specs", {})
         listing["equipment_score"] = score
@@ -387,6 +419,15 @@ def rank(candidates):
         listing["equipment_missing"] = missing
         listing["flags"] = flags
         listing["has_electric_seat"] = electric_seat
+        listing["has_opening_roof"] = opening_roof
+        listing["roof"] = (
+            "Panorama soltak (kan åpnes)"
+            if opening_roof
+            else "Panorama glasstak (fast)"
+            if fixed_roof
+            else "Ingen glasstak oppgitt"
+        )
+        listing["meets_must_haves"] = electric_seat and opening_roof
         listing["battery"] = specs.get("Batterikapasitet", "")
         listing["range_wltp"] = next(
             (v for k, v in specs.items() if k.startswith("Rekkevidde")), ""
@@ -403,6 +444,7 @@ def rank(candidates):
     ranked.sort(
         key=lambda x: (
             x.get("is_lease_takeover", False),
+            not x["meets_must_haves"],
             not x["has_electric_seat"],
             -x["equipment_score"],
             x.get("price") or 10**9,
@@ -413,13 +455,16 @@ def rank(candidates):
 
 def format_slack(ranked, previous_ids=None):
     previous_ids = previous_ids or set()
-    qualified = [x for x in ranked if x["has_electric_seat"]]
+    qualified = [
+        x for x in ranked if x["meets_must_haves"] and not x.get("is_lease_takeover")
+    ]
     top = qualified[:5] if qualified else ranked[:5]
 
     lines = [
         f"*BYD Atto 3 daily scan* – {len(ranked)} match {MIN_YEAR}-{MAX_YEAR} / under "
         f"{MAX_MILEAGE:,} km".replace(",", " "),
-        f"{len(qualified)} of them list electric driver's seat.",
+        f"{len(qualified)} meet both must-haves "
+        f"(electric driver's seat + opening panoramic roof).",
         "",
     ]
 
@@ -433,9 +478,28 @@ def format_slack(ranked, previous_ids=None):
             f"*{i}. {car.get('title')}* – {price_text}{new_tag}\n"
             f"   {car.get('year')} · {car.get('mileage'):,} km".replace(",", " ")
             + f" · spec score {car['equipment_score']}\n"
+            f"   Roof: {car['roof']}\n"
             f"   Has: {', '.join(car['equipment_matched'][:8]) or 'n/a'}\n"
             f"   [{car.get('source', 'finn')}] {car.get('url')}"
         )
+
+    near = [x for x in ranked if x not in top][:4]
+    if near:
+        lines.append("\n_Near misses:_")
+        for car in near:
+            price = car.get("price")
+            price_text = f"{price:,} kr".replace(",", " ") if price else "price n/a"
+            gap = []
+            if not car["has_opening_roof"]:
+                gap.append("no opening roof")
+            if not car["has_electric_seat"]:
+                gap.append("no electric seat")
+            if car.get("is_lease_takeover"):
+                gap.append("lease takeover")
+            lines.append(
+                f"• {car.get('year')} · {car.get('mileage'):,} km".replace(",", " ")
+                + f" · {price_text} · {', '.join(gap) or 'ok'} · {car.get('url')}"
+            )
 
     new_ids = [x["id"] for x in ranked if x["id"] not in previous_ids]
     if previous_ids and new_ids:
