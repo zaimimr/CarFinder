@@ -105,25 +105,6 @@ Dette er verdt å si rett ut: "forhandle hardest mulig" er feil strategi på en
 bil som allerede er priset under marked i et tynt utvalg. Hard forhandling
 hører hjemme på spor A, der selgeren har vist på 66 dager at han tar feil.
 
-## Målpriser (utgått, se To spor over)
-
-**Hovedmål, 475873426 (245 000):**
-
-| Trinn | Bud |
-|---|---|
-| Åpning | 219 000 |
-| 2 | 231 000 |
-| 3 | 237 000 |
-| Siste | 239 400 |
-
-Realistisk landing 235 000-239 000 levert inkludert omregistrering.
-
-**Sekundært, 467995724 (299 000):** kun aktuell under 273 000, siden den
-ligger 26 000 over marked. Ikke bruk tid her før hovedmålet er avklart.
-
-**473616501 og 461004495:** lav km, priset riktig. Lite å hente. Hold dem som
-alternativer å nevne ved navn, ikke som mål.
-
 ## Argumenter som holder
 
 1. **Kilometerstand mot pris.** Tabellen over, uten adjektiver.
@@ -132,8 +113,8 @@ alternativer å nevne ved navn, ikke som mål.
 4. **Batterirapport (SOH).** Billig for forhandler å skaffe. Nekt = argument.
 5. **Dekk og bremseskiver.** Elbiler ruster ned skivene fordi de knapt brukes.
    Under 4 mm mønster er 8 000-12 000 kr.
-6. **Liggetid.** Sjekk "Sist endret". Over 60 dager er brekkstang, over 90 er
-   god brekkstang.
+6. **Liggetid.** Samles inn automatisk av `atto_finder.py`. Over 60 dager er
+   brekkstang, over 90 er god brekkstang.
 
 ## Argumenter som ikke holder
 
