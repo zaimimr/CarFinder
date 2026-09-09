@@ -45,6 +45,13 @@ MIN_YEAR = 2023
 MAX_YEAR = 2024
 MAX_MILEAGE = 30000
 
+# Verified Sept 2026: on the Atto 3 the panoramic sunroof (electric sliding,
+# anti-trap, electric sunshade), the 6-way electric driver's seat and the heat
+# pump are STANDARD on both Comfort and Design. Their absence from a finn.no
+# equipment list means the seller wrote a short list, not that the car lacks
+# them. They are reported, never used to exclude a car.
+STANDARD_ON_ALL = ["Blade LFP-batteri", "Panorama soltak", "Elektrisk førersete", "Varmepumpe"]
+
 OPENING_ROOF_PATTERNS = [
     r"soltak",
     r"skyvetak",
@@ -427,7 +434,15 @@ def rank(candidates):
             if fixed_roof
             else "Ingen glasstak oppgitt"
         )
-        listing["meets_must_haves"] = electric_seat and opening_roof
+        listing["standard_equipment"] = STANDARD_ON_ALL
+        listing["seller_type"] = (
+            "forhandler"
+            if "forhandler" in _norm(str(listing.get("labels", "")))
+            else "privat"
+            if "privat" in _norm(str(listing.get("labels", "")))
+            else "ukjent"
+        )
+        listing["last_edited"] = (detail.get("specs") or {}).get("Sist endret", "")
         listing["battery"] = specs.get("Batterikapasitet", "")
         listing["range_wltp"] = next(
             (v for k, v in specs.items() if k.startswith("Rekkevidde")), ""
@@ -441,13 +456,32 @@ def rank(candidates):
             listing["flags"] = listing["flags"] + ["Leasingovertakelse"]
         ranked.append(listing)
 
+    priced = [x for x in ranked if x.get("price") and x.get("mileage")]
+    if len(priced) >= 3:
+        prices = sorted(x["price"] for x in priced)
+        median_price = prices[len(prices) // 2]
+        km_span = max(x["mileage"] for x in priced) - min(x["mileage"] for x in priced)
+        price_span = max(prices) - min(prices)
+        kr_per_km = (price_span / km_span) if km_span else 0.0
+        median_km = sorted(x["mileage"] for x in priced)[len(priced) // 2]
+        for x in ranked:
+            if x.get("price") and x.get("mileage"):
+                expected = median_price - (x["mileage"] - median_km) * kr_per_km
+                x["expected_price"] = round(expected)
+                x["value_gap"] = round(expected - x["price"])
+            else:
+                x["expected_price"] = None
+                x["value_gap"] = None
+    else:
+        for x in ranked:
+            x["expected_price"] = None
+            x["value_gap"] = None
+
     ranked.sort(
         key=lambda x: (
             x.get("is_lease_takeover", False),
-            not x["meets_must_haves"],
-            not x["has_electric_seat"],
+            -(x.get("value_gap") if x.get("value_gap") is not None else -(10**9)),
             -x["equipment_score"],
-            x.get("price") or 10**9,
         )
     )
     return ranked
@@ -455,16 +489,14 @@ def rank(candidates):
 
 def format_slack(ranked, previous_ids=None):
     previous_ids = previous_ids or set()
-    qualified = [
-        x for x in ranked if x["meets_must_haves"] and not x.get("is_lease_takeover")
-    ]
+    qualified = [x for x in ranked if not x.get("is_lease_takeover")]
     top = qualified[:5] if qualified else ranked[:5]
 
     lines = [
         f"*BYD Atto 3 daily scan* – {len(ranked)} match {MIN_YEAR}-{MAX_YEAR} / under "
         f"{MAX_MILEAGE:,} km".replace(",", " "),
-        f"{len(qualified)} meet both must-haves "
-        f"(electric driver's seat + opening panoramic roof).",
+        f"{len(qualified)} are outright purchases. Sunroof, electric driver's "
+        f"seat, heat pump and Blade battery are standard on every Atto 3.",
         "",
     ]
 
@@ -478,7 +510,13 @@ def format_slack(ranked, previous_ids=None):
             f"*{i}. {car.get('title')}* – {price_text}{new_tag}\n"
             f"   {car.get('year')} · {car.get('mileage'):,} km".replace(",", " ")
             + f" · spec score {car['equipment_score']}\n"
-            f"   Roof: {car['roof']}\n"
+            f"   {car.get('seller_type', 'ukjent')}"
+            + (
+                f" · {car['value_gap']:+,} kr vs market".replace(",", " ")
+                if car.get("value_gap") is not None
+                else ""
+            )
+            + "\n"
             f"   Has: {', '.join(car['equipment_matched'][:8]) or 'n/a'}\n"
             f"   [{car.get('source', 'finn')}] {car.get('url')}"
         )
@@ -490,12 +528,10 @@ def format_slack(ranked, previous_ids=None):
             price = car.get("price")
             price_text = f"{price:,} kr".replace(",", " ") if price else "price n/a"
             gap = []
-            if not car["has_opening_roof"]:
-                gap.append("no opening roof")
-            if not car["has_electric_seat"]:
-                gap.append("no electric seat")
             if car.get("is_lease_takeover"):
                 gap.append("lease takeover")
+            if car.get("value_gap") is not None and car["value_gap"] < 0:
+                gap.append(f"{-car['value_gap']:,} kr over market".replace(",", " "))
             lines.append(
                 f"• {car.get('year')} · {car.get('mileage'):,} km".replace(",", " ")
                 + f" · {price_text} · {', '.join(gap) or 'ok'} · {car.get('url')}"

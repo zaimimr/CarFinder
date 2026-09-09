@@ -1,94 +1,98 @@
 # BYD Atto 3 - forhandlingsnotat
 
-Oppdatert: 2026-09-10. Tallene kommer fra `atto_listings.json`.
+Oppdatert: 2026-09-10. Tall fra `atto_listings.json`.
+Metode og kilder: `.claude/skills/car-negotiation/`.
 
-## Krav
+## Rettelse fra forrige versjon
 
-- 2024 foretrukket, 2023 godtatt
-- Under 30 000 km
-- Elektrisk justerbart førersete
-- Panorama soltak som kan åpnes (ikke fast glasstak)
-- Blade-batteri: alle Atto 3 har LFP Blade fra fabrikk, så dette trenger ingen
-  VIN-sjekk. Ingen Atto 3 finnes med annen batteritype.
-- Memory-seter ikke nødvendig, hengerfeste ikke ønsket
-- Ellers så fullspekket som mulig
+Research viser at tre av kravene ikke er krav i det hele tatt:
 
-Viktig skille i annonsetekstene: "Panorama soltak med solskjerm" kan åpnes,
-"Panorama glasstak" er fast. Verifiser med selger før du binder deg.
+- **Panoramataket er standard på alle Atto 3**, både Comfort og Design, og det
+  er et elektrisk skyvetak med solskjerm. Ikke fast glass.
+- **Elektrisk 6-veis førersete er standard**, også på Comfort.
+- **Varmepumpe er standard.**
+- **Blade-batteri er i hver eneste Atto 3 som er bygget.**
 
-## Markedet akkurat nå
+Forskjellen mellom "Panorama glasstak" og "Panorama soltak" i annonsene er
+altså forhandlernes egen ordbruk, ikke en reell forskjell på bilene.
 
-Finn.no har 103 Atto 3 totalt. Bare 11 er 2023- eller 2024-modell, og bare 5
-har under 30 000 km. Av disse 5 er det **én** som oppfyller begge kravene.
-Utvalget er altså svært tynt.
+Forrige versjon av filteret kastet ut tre biler på dette grunnlaget og
+rangerte den dyreste bilen i utvalget øverst. Det var feil begge veier.
 
-## Kandidater
+De eneste utstyrsforskjellene som faktisk følger utstyrsnivå er **elektrisk
+bakluke** og **15,6" roterbar skjerm**, begge på Design.
 
-| Annonse | År | Km | Pris | Tak | Score | Status |
-|---|---|---|---|---|---|---|
-| [467995724](https://www.finn.no/mobility/item/467995724) | 2024 | 27 903 | 299 000 | Soltak, kan åpnes | 42 | **Eneste treff** |
-| [475873426](https://www.finn.no/mobility/item/475873426) | 2023 | 20 600 | 245 000 | Fast glasstak | 28 | Faller på tak |
-| [473616501](https://www.finn.no/mobility/item/473616501) | 2024 | 12 193 | 299 500 | Fast glasstak | 25 | Faller på tak |
-| [461004495](https://www.finn.no/mobility/item/461004495) | 2024 | 10 250 | 309 000 | Ingen oppgitt | 22 | Faller på tak |
-| [474820076](https://www.finn.no/mobility/item/474820076) | 2024 | 27 518 | - | Ingen oppgitt | 52 | Leasingovertakelse |
+## Utvalget
 
-## Forhandlingsgrunnlag for 467995724
+| Annonse | År | Km | Pris | Selger | Mot marked |
+|---|---|---|---|---|---|
+| [475873426](https://www.finn.no/mobility/item/475873426) | 2023 | 20 600 | 245 000 | Forhandler | **+54 500** |
+| [473616501](https://www.finn.no/mobility/item/473616501) | 2024 | 12 193 | 299 500 | Forhandler | +30 500 |
+| [461004495](https://www.finn.no/mobility/item/461004495) | 2024 | 10 250 | 309 000 | Forhandler | +28 000 |
+| [467995724](https://www.finn.no/mobility/item/467995724) | 2024 | 27 903 | 299 000 | Forhandler | **-26 000** |
+| [474820076](https://www.finn.no/mobility/item/474820076) | 2024 | 27 518 | - | Privat | Leasingovertakelse |
 
-Argumenter som faktisk flytter pris:
+"Mot marked" er avviket fra forventet pris gitt kilometerstand i dette
+utvalget. Positivt = billig for det du får.
 
-- **Kilometerstanden er den høyeste i utvalget.** 27 903 km mot 10 250 km på
-  en bil som ligger ute til 309 000. Bilen er priset som om den var lavkm.
-- **Facelift-press.** Atto 3 Evo (2025) ligger tungt ute. En 2024 uten Evo-
-  oppdateringene taper verdi raskt, og selger vet det.
-- **Nybilpris har falt.** Kjøperen din alternativ er en fabrikkny Evo med full
-  garanti. Differansen må forsvare seg selv.
-- **Omregistrering kommer på toppen**, ca. 4 500-5 000 kr. Krev at selger
-  dekker den, eller at den trekkes fra prisen.
-- **Batterihelse.** Be om SOH-rapport fra BYD-verksted. Får du den ikke, er
-  det et konkret prisargument, ikke bare en formalitet.
-- **Slitedeler.** Sjekk dekk-mønsterdybde og bremseskiver. Alt under 4 mm
-  mønster er 8 000-12 000 kr i dekk du må ut med.
+## Hva tabellen faktisk sier
 
-Målpriser:
+De tre 2024-bilene ligger innenfor 10 000 kr av hverandre, men spenner fra
+10 250 til 27 903 km. Markedet priser altså ikke kilometerstand i dette
+båndet i det hele tatt. Det er den eneste virkelige brekkstangen vi har.
 
-- Åpningsbud: **265 000 kr**
-- Realistisk landing: **280 000 kr**
-- Walk-away: over **287 000 kr**. Da er de andre bilene i markedet bedre kjøp
-  selv med fast tak, og du kan heller vente på neste annonse.
+**467995724** er svakeste kjøp i utvalget til tross for best utstyrsscore. Den
+har nesten tre ganger kilometerstanden til de to andre 2024-bilene og koster
+det samme. Utstyrsscore er ikke verdi.
 
-## Meldingsutkast
+**475873426** til 245 000 er sterkeste kjøp. Én modellårgang eldre, men 54 000
+kr billigere enn 2024-bilene og med færre km enn 467995724. Forhandlerkjøp gir
+i tillegg fem års reklamasjonsrett med to års omvendt bevisbyrde, som på en
+elbil er verdt reelle penger.
 
-Første melding, holder alt åpent og henter ammunisjon:
+## Posisjon
 
-> Hei! Jeg ser på Atto 3 og er konkret interessert i denne. Noen spørsmål før
-> jeg eventuelt kommer:
->
-> - Kan panoramataket åpnes, eller er det fast glass?
-> - Er førersetet elektrisk justerbart?
-> - Kan du sende service-historikk og batterirapport (SOH)?
-> - Hva er mønsterdybden på dekkene?
-> - Hva er totalprisen inkludert omregistrering?
+Alle fem er forhandlerbiler eller leasing. Ingen privatselgere i utvalget.
+Med fire reelle alternativer er posisjonen **brukbar, ikke sterk**: full
+Ackerman-stige er for aggressiv, komprimert stige er riktig.
 
-Andre melding, budet:
+## Målpriser
 
-> Takk for svar. Jeg har sett på markedet en stund, og denne ligger på 27 903
-> km mens tilsvarende 2024-biler med rundt 10 000 km ligger på 309 000. Med
-> Evo-modellen ute er prisforskjellen mot en helt ny bil ganske liten.
->
-> Jeg kan tilby **265 000 kr** med rask overtakelse, betaling samme uke, og
-> ingen forbehold om finansiering. Det er et reelt bud jeg står ved.
+**Hovedmål, 475873426 (245 000):**
 
-Hvis de avviser:
+| Trinn | Bud |
+|---|---|
+| Åpning | 219 000 |
+| 2 | 231 000 |
+| 3 | 237 000 |
+| Siste | 239 400 |
 
-> Forstår. Jeg strekker meg til **280 000 kr** inkludert omregistrering, og
-> det er min grense. Om det ikke passer, er det helt greit, men da ser jeg på
-> de andre bilene som ligger ute nå.
+Realistisk landing 235 000-239 000 levert inkludert omregistrering.
 
-Prinsipper som gjør budene harde:
+**Sekundært, 467995724 (299 000):** kun aktuell under 273 000, siden den
+ligger 26 000 over marked. Ikke bruk tid her før hovedmålet er avklart.
 
-- Ett bud om gangen, aldri by mot deg selv.
-- Alltid oppgi hva du får igjen for pengene: rask overtakelse, ingen
-  finansieringsforbehold, ingen innbytte.
-- Nevn alternativene konkret. Vage trusler flytter ingenting.
-- Vær villig til å gå. Med bare fem biler i utvalget er det din tålmodighet
-  som er hovedvåpenet, ikke retorikken.
+**473616501 og 461004495:** lav km, priset riktig. Lite å hente. Hold dem som
+alternativer å nevne ved navn, ikke som mål.
+
+## Argumenter som holder
+
+1. **Kilometerstand mot pris.** Tabellen over, uten adjektiver.
+2. **Evo-facelift.** 2025-modellen presser 2023/2024-restverdier ned. Reelt.
+3. **Omregistrering**, ca. 4 500-5 000 kr. Krev totalpris levert.
+4. **Batterirapport (SOH).** Billig for forhandler å skaffe. Nekt = argument.
+5. **Dekk og bremseskiver.** Elbiler ruster ned skivene fordi de knapt brukes.
+   Under 4 mm mønster er 8 000-12 000 kr.
+6. **Liggetid.** Sjekk "Sist endret". Over 60 dager er brekkstang, over 90 er
+   god brekkstang.
+
+## Argumenter som ikke holder
+
+- At bilen mangler soltak, elektrisk sete eller varmepumpe. Alt er standard,
+  og å påstå noe annet ødelegger troverdigheten i resten av argumentasjonen.
+- Vage trusler om å gå. Nevn finnkode, eller la være.
+
+## Status
+
+Ingen meldinger er sendt. Utkast ligger i `SELLER_QUESTIONS.md` og maler i
+`.claude/skills/car-negotiation/references/templates.md`.
