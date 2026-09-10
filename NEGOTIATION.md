@@ -130,6 +130,16 @@ Annonsetittelen oppgir **Design**-nivå. Bilen har altså elektrisk bakluke og
 Comfort og Design. Utstyrslisten på Finn nevner ingen av delene, noe som
 bekrefter at korte utstyrslister ikke kan leses som mangler.
 
+## Logg
+
+**10.09.2026 13:15 - Thomas svarte.** Ba om telefonsamtale, besvarte ingen av
+de fem spørsmålene. Vi utsatte telefonen skriftlig og gjentok spørsmålene
+(melding 1b, sendt 13:20). Ingen tall nevnt ennå.
+
+Fra annonsen samtidig: 24 favoritter (opp fra 23), og forhandleren er nede i
+73 annonser fra 75. Annonsetittelen bekrefter Design, 420 km WLTP, 360-kamera
+og panorama.
+
 ## Status
 
 **10.09.2026 09:20 - melding 1 sendt** til STAR BIL AS via Finn.

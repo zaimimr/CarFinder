@@ -141,6 +141,39 @@ The table does the work. Do not add adjectives to it.
 - [NAF: slik kan du prute på bruktbil](https://www.naf.no/kjop-og-salg/kjop/prute-pris-bruktbil)
 - [Power and negotiation: advice on first offers, PON Harvard](https://www.pon.harvard.edu/daily/batna/power-and-negotiation-advice-on-first-offers)
 
+## When the dealer asks you to call
+
+A dealer replying to a detailed written enquiry with "ring meg" and nothing
+else is not being friendly, or not only being friendly. It is the single most
+common move in the book, and it is worth understanding before answering.
+
+On the phone the dealer gets: no written record, real-time pressure, no
+pauses for you to check a comparable, and a medium they work in every day
+against someone who does this once every few years. In writing you get:
+tables, finnkoder, computed numbers, time to think, and a record of every
+claim they make about the car.
+
+Notice also what such a reply does *not* contain: answers. A request to call
+that skips every question asked is a deflection whether or not it is meant as
+one.
+
+**Do not refuse the call. Defer it.** Refusing reads as unserious and can cost
+the relationship. Deferring costs nothing:
+
+> Jeg sitter i møter store deler av dagen, så det er enklest for meg å ta det
+> skriftlig i første omgang. Kan du svare kort på disse, så tar vi gjerne en
+> prat etterpå?
+
+Then re-ask the questions verbatim and add a line establishing you are real:
+buying seriously, able to sign quickly. That answers the unspoken reason
+dealers push for calls, which is filtering time-wasters.
+
+If a call does eventually happen, the rules are: know your three numbers
+before dialling, take notes, commit to nothing on the call, and confirm
+whatever was agreed in writing immediately afterwards ("Takk for praten — for
+ordens skyld, vi ble enige om ..."). An unconfirmed verbal agreement is not
+an agreement.
+
 ## Import from Germany: checked, does not work for this car
 
 Worth recording as a negative result so it is not re-investigated every time

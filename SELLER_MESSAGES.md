@@ -24,6 +24,38 @@ for dem. Nevnes de først når prisen er avtalt, er de nesten gratis. Se
 
 ---
 
+## Svar fra Thomas, Star Bil - 10.09.2026
+
+> Heisann. Kan du ringe meg på telefon [nummer] når du har tid? 😊
+> Mvh. Thomas, Star Bil
+
+Ingen av de fem spørsmålene besvart. Klassisk forsøk på å flytte handelen fra
+skrift til telefon, der forhandleren har all fordelen.
+
+## Melding 1b - utsett telefonen, gjenta spørsmålene ✅ SENDT 10.09.2026 13:20
+
+> Hei Thomas, takk for rask tilbakemelding!
+>
+> Jeg sitter i møter store deler av dagen, så det er enklest for meg å ta det
+> skriftlig i første omgang. Kan du svare kort på disse, så tar vi gjerne en
+> prat etterpå?
+>
+> - Kan dere skaffe batterirapport (SOH) fra BYD-verksted?
+> - Er det gjort service, og når er neste?
+> - Følger det med to nøkler?
+> - Hva er mønsterdybden på sommer- og vinterdekkene?
+> - Kan du sende understellsnummeret (VIN)?
+>
+> Jeg er en reell kjøper og kan signere raskt, så det er bare disse punktene
+> jeg trenger på plass først.
+>
+> Mvh Zaim
+
+Avslo ikke telefonen, utsatte den. Siste avsnitt svarer på den egentlige
+grunnen til at forhandlere vil ringe: å sile bort tidstyver.
+
+---
+
 # FASE 1 - PRIS
 
 Ingen ønsker om ytelser i disse meldingene.
