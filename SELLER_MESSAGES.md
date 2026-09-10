@@ -41,6 +41,9 @@ Send etter svar på melding 1. Dette er hovedstrategien.
 > - Transport til meg
 > - Full lading og komplette ladekabler
 >
+> Kan dere også sende understellsnummeret (VIN)? Jeg vil verifisere
+> batteripakken mot BYD sine data før jeg signerer.
+>
 > Får jeg det, tar jeg bilen til 309 000. Si fra om det går.
 
 Dette er det sterkeste trekket i hele planen: full pris mot 10 000-20 000 kr

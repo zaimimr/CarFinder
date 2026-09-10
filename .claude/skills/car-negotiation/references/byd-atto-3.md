@@ -28,8 +28,37 @@ The "Panorama glasstak" versus "Panorama soltak" wording seen across finn
 listings is dealer copywriting variance, not a spec difference. The roof
 opens on both. Confirm by asking, never by filtering.
 
-Blade battery in particular needs no VIN check. The requirement is satisfied by
-the car being an Atto 3 at all.
+## Verifying the Blade battery on a specific car
+
+Every Atto 3 uses the Blade pack, but if documentary proof is wanted for one
+particular car rather than a general claim, here is the chain.
+
+**Background.** The Blade is BYD's own LFP cell-to-pack design, built by
+FinDreams Battery, a BYD subsidiary. The Atto 3 is the first car on BYD's
+e-Platform 3.0, which is designed around the cell-to-pack Blade as a
+structural floor member. There is no module-based alternative pack for the
+platform, and BYD sources its own cells. Research in September 2026 across
+BYD's own material, Wikipedia and EV parts suppliers surfaced no Atto 3
+variant, in any market, with anything other than a Blade LFP pack.
+
+**Two Blade packs exist for the Atto 3:** 49.92 kWh (standard range) and
+60.48 kWh (extended range). Both are Blade. Capacity is the only variable.
+
+**Proof for a specific car, cheapest first:**
+
+1. **The listed range.** 420 km WLTP means the 60.48 kWh extended-range Blade.
+   A listing quoting ~420 km and "60 kWh" has already told you which pack.
+2. **Ask for the VIN (understellsnummer).** Positions 4-8 read `DB16B` on an
+   Atto 3. The WMI (first three) is `LVV` for the Shenzhen plant or `LSV` for
+   Xi'an, Changsha or Hefei. Battery capacity is encoded in the VDS section.
+3. **Statens vegvesen "Sjekk kjøretøy"** by registration number gives the
+   registered technical data including battery capacity.
+4. **A BYD workshop battery report (SOH).** Names the pack directly, and you
+   want this report anyway for condition. This is the definitive document.
+
+Asking a seller "does it have the Blade battery?" still signals no homework,
+because the answer is always yes. Asking for the **VIN and the SOH report**
+does not: those are normal buyer diligence, and they give real proof.
 
 ## Trim differences that are real
 
