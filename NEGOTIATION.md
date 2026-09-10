@@ -50,10 +50,10 @@ forhandleren internkost og han vil ikke rive opp en ferdig handel for dem.
 
 | Trinn | Bud | Kommentar |
 |---|---|---|
-| Åpning | 269 000 | 40 000 under, 13 %. Aggressivt med vilje |
-| 2 | 285 000 | Kun etter mottilbud |
-| 3 | 294 000 | Under begge de andre 2024-ene |
-| Siste | 297 400 | Presist tall, signaliserer tak |
+| Åpning | 259 000 | 50 000 under, 16 %. Med full begrunnelse |
+| 2 | 281 000 | Kun etter mottilbud |
+| 3 | 292 000 | Under begge de andre 2024-ene |
+| Siste | 296 200 | Presist tall, signaliserer tak |
 
 Walk-away **299 500**. Over det er 473616501 et bedre kjøp på rene tall.
 
@@ -67,7 +67,34 @@ Batterirapport, service, transport og full lading er samlet verdt
 10 000-20 000 kr, og koster forhandleren en brøkdel av det. Nibble fungerer
 omtrent seks av ti ganger. Én runde, så stopper vi.
 
-Samlet mål: **297 000 eller lavere, pluss 10 000-20 000 i ytelser.**
+Samlet mål: **296 000 eller lavere, pluss 10 000-20 000 i ytelser.**
+
+## Hvorfor 259 000 ikke skremmer dem vekk
+
+Et lavt bud uten begrunnelse får et ettordssvar. Det samme tallet med tre
+konkrete, etterprøvbare grunner får et mottilbud. Derfor følger åpningen med
+finnkodene på de to andre 2024-ene, liggetiden på 467995724, Evo-presset, og
+hva vi faktisk tilbyr: kontant, ingen forbehold, ingen innbytte, signering
+denne uken, og at vi henter bilen selv.
+
+Vi lar dem også ha en enkel vei til "nei, men". Et nakent tall inviterer til
+avvisning, et tall med grunn inviterer til mottilbud.
+
+## Å fly for å hente: hva det faktisk er verdt
+
+Sjekket import fra Tyskland. **Det er ikke en brekkstang.** Tyske 2024-Atto 3
+ligger på €25 100-28 700, altså 291 000-333 000 kr før norsk moms,
+vektkomponent, transport og registrering. Bilen er dyrere importert. BYD
+priser aggressivt i Norge, så det norske bruktmarkedet ligger allerede nær
+europeisk gulv.
+
+Vi bruker derfor **ikke** import som argument. Å sitere et billigere utenlandsk
+alternativ vi ikke har regnet hjem er oppdiktet brekkstang, og det kollapser i
+det forhandleren spør hvilken bil.
+
+Det reisevilligheten faktisk gir: "jeg kjøper heller den i [by]" blir en
+troverdig setning i stedet for bløff, og transport faller bort fra lista over
+ting det er verdt å be om, siden vi henter selv uansett.
 
 ## Det største enkelttallet
 

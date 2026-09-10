@@ -44,8 +44,9 @@ Ingen ønsker om ytelser i disse meldingene.
 > siden juli uten å bli solgt. Med Evo-modellen i markedet faller
 > restverdiene på 2024-årgangen raskt.
 >
-> Jeg kan tilby **269 000 kr**. Jeg signerer denne uken, betaler kontant, har
-> ingen forbehold om finansiering og skal ikke bytte inn noe.
+> Jeg kan tilby **259 000 kr**. Jeg signerer denne uken, betaler kontant, har
+> ingen forbehold om finansiering, skal ikke bytte inn noe, og henter bilen
+> selv i Skien. Jeg reiser gjerne for å hente riktig bil.
 >
 > Kan dere også sende understellsnummeret (VIN)? Jeg vil verifisere
 > batteripakken mot BYD sine data før jeg signerer.
@@ -56,7 +57,7 @@ Så stopper du. Ikke følg opp på tre dager.
 
 Bare etter mottilbud. Aldri by mot deg selv.
 
-> Takk. Jeg kan strekke meg til **285 000 kr**.
+> Takk. Jeg kan strekke meg til **281 000 kr**.
 
 ## Melding 4 - kalibrert spørsmål
 
@@ -67,18 +68,22 @@ Bruk denne i stedet for å bruke et trinn, hvis de står på sitt.
 
 ## Melding 5 - tredje trinn
 
-> **294 000 kr.** Da er jeg under begge de andre 2024-ene, og dere har en bil
-> som ikke har blitt solgt på ni dager i et marked der Evo-en tar kundene.
+> **292 000 kr.** Da er jeg under begge de andre 2024-ene, og dere har en bil
+> som ikke har blitt solgt i et marked der Evo-en tar kundene.
 
 ## Melding 6 - siste bud
 
-> Da lander jeg på **297 400 kr**. Det er min grense.
+> Da lander jeg på **296 200 kr**. Det er min grense.
 >
 > Jeg henter bilen selv i Skien og signerer i morgen.
 >
 > Hvis det ikke passer er det helt greit. Tilbudet står ut fredag.
 
 Siste setning bare hvis du faktisk er villig til å gå. Walk-away er 299 500.
+
+**Tegn på at vi har presset for hardt:** ettordssvar, brudd på svarmønsteret
+deres, eller "prisen er fast" uten noe mer. Da holder vi tallet og går stille.
+Å heve rett etter et kaldt svar lærer dem at kulde virker.
 
 ## Melding 7 - hvis de sier prisen er fast
 
@@ -101,7 +106,7 @@ for en service.
 > Flott, da er vi enige om **[avtalt pris]**. Jeg signerer i dag.
 >
 > Da regner jeg med at batterirapporten fra BYD, en fersk service før
-> overlevering og full lading med alle ladekabler følger med?
+> overlevering, full lading og alle ladekabler følger med?
 
 Én pust, alle punktene samlet. "Jeg regner med at" slår "kan dere også".
 Én runde, så stopper du. Å nibble to ganger leser som uærlighet.

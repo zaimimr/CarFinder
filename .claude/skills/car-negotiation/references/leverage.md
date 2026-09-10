@@ -140,3 +140,29 @@ The table does the work. Do not add adjectives to it.
 - [NAF: sjekk dette før du kjøper brukt elbil](https://www.naf.no/elbil/elprix-nytt/sjekk-dette-for-du-kjoper-brukt-elbil-na)
 - [NAF: slik kan du prute på bruktbil](https://www.naf.no/kjop-og-salg/kjop/prute-pris-bruktbil)
 - [Power and negotiation: advice on first offers, PON Harvard](https://www.pon.harvard.edu/daily/batna/power-and-negotiation-advice-on-first-offers)
+
+## Import from Germany: checked, does not work for this car
+
+Worth recording as a negative result so it is not re-investigated every time
+someone says "I'll fly to collect it".
+
+German used 2024 Atto 3 asking prices, September 2026: roughly
+**€25 100-28 700**, so about 291 000-333 000 NOK at prevailing rates before
+any Norwegian cost. That is already at or above the Norwegian used price
+before import VAT, the weight-based engangsavgift component, transport and
+registration are added.
+
+The saving claimed by import-service websites (30 000-150 000 kr) comes from
+markets and model classes where the German price genuinely undercuts Norway.
+The Atto 3 is not one of them: BYD prices aggressively in Norway, so the
+domestic used market is already near the European floor.
+
+**Do not use import as leverage in a message.** Citing a cheaper foreign
+option you have not actually priced out, VAT included, is fabricated leverage
+and it collapses the moment a dealer asks which car. If import ever does pencil
+out, compute the landed total first with Vegvesenet's calculator, then cite it
+with the specific listing.
+
+What a willingness to travel *is* worth: it makes "I will buy the one in
+[city] instead" a credible sentence rather than a bluff, and it removes
+delivery from the list of things worth asking for.

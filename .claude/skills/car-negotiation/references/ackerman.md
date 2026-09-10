@@ -85,6 +85,34 @@ for a concession in exchange for nothing. Answer with the rung you are on.
 Recalculate the remaining rungs from where you are, keeping the gaps
 decreasing. Do not jump to your target because they moved.
 
+## Pushing harder without losing the seller
+
+A hard anchor and a lowball are not the same thing, and the difference is
+entirely whether a reason is attached.
+
+An unjustified number well below asking gets a one-line "nei" and
+disengagement, because it reads as someone who has not looked at the market.
+The same number with three specific, checkable reasons gets a counter-offer,
+because it reads as someone who has.
+
+So when the instruction is "push harder", the lever is **more justification,
+not just a lower number**:
+
+- Name the competing listings by finnkode, with their mileage and price.
+- Name the days-on-market of the aged comparable.
+- Name the structural pressure (a facelift arriving, a tax change, seasonality).
+- State what you bring: cash, no financing contingency, no trade-in, signing
+  this week, collecting yourself.
+
+Then leave an obvious route to "no, but": a bare number invites rejection,
+while a number plus a reason invites a counter.
+
+Signals you have gone too far and are losing them: a one-line reply, a delay
+that breaks their previous response pattern, or "prisen er fast" with nothing
+after it. Recover by holding the number and going quiet rather than by
+raising immediately — raising straight after a cold reply teaches them that
+coldness works.
+
 ## When to abandon the ladder
 
 If the car is genuinely rare and genuinely correct and the pool of

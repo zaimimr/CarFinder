@@ -69,6 +69,7 @@ Ranked by value-to-you against cost-to-them:
 | Battery SOH report | 10 000-20 000 in risk | ~1 hour workshop time |
 | Fresh service before handover | 3 000-6 000 | internal cost |
 | Transport/delivery | 3 000-6 000 | a driver's afternoon |
+| (drop this one if the buyer will collect anyway) | | |
 | Second key | 3 000-5 000 | real cost, ask last |
 | Full charge and all cables | small | nothing |
 | Both tyre sets confirmed in contract | protects what you were promised | nothing |
