@@ -21,59 +21,47 @@ Henter informasjon, gir ingenting. Ingen tall.
 
 ---
 
-## Melding 2 - hovedbudet, ytelser framfor kroner
+## Melding 2 - hovedbudet, pris
 
-Send etter svar på melding 1. Dette er hovedstrategien.
+Send etter svar på melding 1. Målet er kroner, ikke ytelser.
 
 > Takk for raske svar.
 >
-> Jeg har sett på de andre 2024-ene som ligger ute. Deres bil er priset likt
-> med dem, men har lavere km og vinterdekk på alufelg, så jeg synes prisen i
-> seg selv er grei.
+> Jeg har sett på de andre 2024-ene som ligger ute nå:
 >
-> Jeg er klar til å signere denne uken, betaler kontant, har ingen forbehold
-> om finansiering og skal ikke bytte inn noe.
+> | Bil | Km | Pris |
+> |---|---|---|
+> | Deres | 10 250 | 309 000 |
+> | 473616501 | 12 193 | 299 500 |
+> | 467995724 | 27 903 | 299 000 |
 >
-> Da vil jeg gjerne ha med:
+> Deres ligger 9 500-10 000 kr over begge, og 467995724 har ligget ute siden
+> juli uten å bli solgt.
 >
-> - Batterirapport fra BYD-verksted
-> - Service gjort før overlevering
-> - Transport til meg
-> - Full lading og komplette ladekabler
+> Jeg kan tilby **279 000 kr**. Jeg signerer denne uken, betaler kontant, har
+> ingen forbehold om finansiering og skal ikke bytte inn noe.
 >
 > Kan dere også sende understellsnummeret (VIN)? Jeg vil verifisere
 > batteripakken mot BYD sine data før jeg signerer.
->
-> Får jeg det, tar jeg bilen til 309 000. Si fra om det går.
-
-Dette er det sterkeste trekket i hele planen: full pris mot 10 000-20 000 kr
-i ytelser. Forhandlere sier ja til dette langt oftere enn til et prisavslag,
-fordi de slipper å innrømme at prisen var feil.
-
----
-
-## Melding 3 - hvis de sier nei til ytelsene
-
-Nå, og først nå, går vi på pris.
-
-> Forstår at det er begrenset hva dere kan legge inn.
->
-> Da ser jeg heller på pris. [Finnkode 467995724] ligger på 299 000, og den
-> har ligget ute siden juli. Jeg foretrekker deres bil på grunn av
-> kilometerstanden, men ikke for 10 000 kr.
->
-> Jeg kan tilby **289 000 kr**. Betaling og signering denne uken.
 
 Så stopper du. Ikke følg opp på tre dager.
 
 ---
 
-## Melding 4 - andre trinn, etter mottilbud
+## Melding 3 - andre trinn
 
-> Takk. Jeg kan strekke meg til **297 000 kr**.
+Bare etter at de har kommet med et mottilbud. Aldri by mot deg selv.
+
+> Takk. Jeg kan strekke meg til **291 000 kr**.
 >
-> Det tilsvarer det de andre 2024-ene ligger på, justert for at deres har
-> vinterdekk med.
+> Det er fortsatt under de to andre 2024-ene, men jeg tar høyde for at dere
+> har vinterdekk med og lavere kilometerstand.
+
+---
+
+## Melding 4 - tredje trinn
+
+> **297 000 kr.** Nå er jeg på nivå med 473616501, og den har 2 000 km mer.
 
 ---
 
@@ -88,10 +76,9 @@ Bruk denne hvis de står på sitt, i stedet for å bruke et trinn.
 
 ## Melding 6 - siste bud
 
-> Da lander jeg på **302 400 kr**. Det er min grense.
+> Da lander jeg på **298 600 kr**. Det er min grense.
 >
-> Til gjengjeld henter jeg bilen selv i Skien, signerer i morgen, og trenger
-> ingen klargjøring utover batterirapporten.
+> Jeg henter bilen selv i Skien og signerer i morgen.
 >
 > Hvis det ikke passer er det helt greit. Tilbudet står ut fredag.
 

@@ -36,35 +36,35 @@ Vinterdekk på alufelg er verdt 10 000-15 000 kr. Trekker man fra 12 000 ligger
 Bilen er med andre ord riktig priset. Det betyr lite rom på pris, og at
 strategien bør flyttes fra kroner til ytelser.
 
-## Strategi: be om ytelser, ikke avslag
+## Strategi: pris, ikke ytelser
 
-Forhandlere beskytter overskriftsprisen langt hardere enn de beskytter en
-service eller en transport. På en bil som allerede er riktig priset er det
-her pengene faktisk ligger.
+Zaim 10.09.2026: "I want to pay the lowest amount possible. The real
+measurement is how much money can i save. Not what other services i get."
 
-1. **Batterirapport (SOH)** fra BYD-verksted. Koster dem lite, verdt mye.
-2. **Fersk service** før overlevering. 3 000-6 000 kr.
-3. **Transport fra Skien.** 3 000-6 000 kr.
-4. **Ekstra nøkkel** hvis det bare følger én. 3 000-5 000 kr.
-5. **Full lading og komplette ladekabler** ved henting.
+Ytelsesstrategien er derfor lagt vekk. Alt går på kroner.
 
-Samlet 10 000-20 000 kr i reell verdi uten å røre prisen. Forhandleren kan si
-ja uten å innrømme at prisen var feil, og det er nettopp derfor det virker.
+| Trinn | Bud | Argument |
+|---|---|---|
+| Åpning | 279 000 | 30 000 under, forankrer lavt |
+| 2 | 291 000 | Kun etter mottilbud |
+| 3 | 297 000 | På nivå med 473616501 |
+| Siste | 298 600 | Presist tall, signaliserer tak |
 
-## Prisstige
+Walk-away 299 500. Over det er 473616501 et bedre kjøp på rene tall.
 
-Brukes bare hvis de avviser ytelsene. Komprimert Ackerman. 9 dagers liggetid
-gir lite tidspress, så åpningen kan ikke være for lav:
+Realistisk landing **295 000-300 000**, altså 9 000-14 000 spart. Bilen er
+riktig priset, og 9 dagers liggetid gir lite tidspress, så det er taket på hva
+ren prispressing gir her.
 
-| Trinn | Bud |
-|---|---|
-| Åpning | 289 000 |
-| 2 | 297 000 |
-| 3 | 301 000 |
-| Siste | 302 400 |
+## Det største enkelttallet
 
-Realistisk landing **299 000-303 000** levert, eller full pris med ytelsene
-over. Walk-away 305 000 hvis de ikke gir noe som helst.
+Hvis målet er kroner spart og ikke denne spesifikke bilen, er det verdt å si
+én gang: [475873426](https://www.finn.no/mobility/item/475873426) ligger på
+245 000, er fritatt omregistrering og har vinterdekk. Det er **64 000 kr**
+billigere enn 461004495 før forhandling i det hele tatt.
+
+Valget av bil betyr med andre ord fem ganger mer enn forhandlingen på denne
+bilen. Sagt én gang, så går vi videre med 461004495 som avtalt.
 
 ## Brekkstenger
 
