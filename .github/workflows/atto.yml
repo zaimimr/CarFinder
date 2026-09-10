@@ -1,4 +1,4 @@
-name: BYD Atto 3 Daily Scan
+name: BYD Atto 3 Scan
 
 on:
   schedule:
