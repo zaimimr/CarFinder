@@ -83,6 +83,21 @@ over. Walk-away 305 000 hvis de ikke gir noe som helst.
 - Kilometerstand. Denne bilen har lavest km i utvalget. Argumentet peker
   motsatt vei.
 
+## Bekreftet fra annonsen
+
+Annonsetittelen oppgir **Design**-nivå. Bilen har altså elektrisk bakluke og
+15,6" roterbar skjerm, som er de eneste reelle utstyrsforskjellene mellom
+Comfort og Design. Utstyrslisten på Finn nevner ingen av delene, noe som
+bekrefter at korte utstyrslister ikke kan leses som mangler.
+
 ## Status
 
-Ingen meldinger sendt. Utkast i `SELLER_MESSAGES.md`.
+**10.09.2026 09:20 - melding 1 sendt** til STAR BIL AS via Finn.
+Spørsmål om batterirapport (SOH), service, to nøkler, mønsterdybde og
+transport fra Skien. Ingen tall nevnt. Telefonnummer ikke oppgitt.
+
+Finn bekreftet: "Meldingen er sendt. Selgeren vil kontakte deg så snart som
+mulig."
+
+Neste steg: melding 2 (full pris mot ytelser) når de svarer. Ligger klar i
+`SELLER_MESSAGES.md`.

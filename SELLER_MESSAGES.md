@@ -1,10 +1,10 @@
 # Meldinger til STAR BIL AS - finnkode 461004495
 
-Ingen av disse er sendt. Send i rekkefølge, vent på svar mellom hver.
+Send i rekkefølge, vent på svar mellom hver. Melding 1 er sendt.
 
 ---
 
-## Melding 1 - åpning
+## Melding 1 - åpning ✅ SENDT 10.09.2026 09:20
 
 Henter informasjon, gir ingenting. Ingen tall.
 
