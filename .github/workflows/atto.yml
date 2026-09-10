@@ -2,7 +2,10 @@ name: BYD Atto 3 Daily Scan
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    # 07:00 and 19:00 Europe/Oslo. GitHub cron is UTC only and Oslo is
+    # currently CEST (UTC+2). When Norway returns to CET on 25 October 2026
+    # these become 06:00 and 18:00 local, so shift to "0 6,18 * * *" then.
+    - cron: "0 5,17 * * *"
   workflow_dispatch:
 
 permissions:
