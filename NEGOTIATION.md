@@ -36,25 +36,38 @@ Vinterdekk på alufelg er verdt 10 000-15 000 kr. Trekker man fra 12 000 ligger
 Bilen er med andre ord riktig priset. Det betyr lite rom på pris, og at
 strategien bør flyttes fra kroner til ytelser.
 
-## Strategi: pris, ikke ytelser
+## Strategi: pris først, ytelser etterpå
 
-Zaim 10.09.2026: "I want to pay the lowest amount possible. The real
-measurement is how much money can i save. Not what other services i get."
+Zaim 10.09.2026: "I want you to get as much service and as low price as
+possible. Both are important."
 
-Ytelsesstrategien er derfor lagt vekk. Alt går på kroner.
+Begge deler er mulig, men ikke i samme melding. Nevnes ytelsene mens prisen
+fortsatt er åpen, blir de betalingsmiddel: forhandleren priser dem inn og du
+har betalt for dem. Nevnes de først når prisen er avtalt, koster de
+forhandleren internkost og han vil ikke rive opp en ferdig handel for dem.
 
-| Trinn | Bud | Argument |
+**Fase 1, pris.** Ingen ønsker om ytelser i det hele tatt.
+
+| Trinn | Bud | Kommentar |
 |---|---|---|
-| Åpning | 279 000 | 30 000 under, forankrer lavt |
-| 2 | 291 000 | Kun etter mottilbud |
-| 3 | 297 000 | På nivå med 473616501 |
-| Siste | 298 600 | Presist tall, signaliserer tak |
+| Åpning | 269 000 | 40 000 under, 13 %. Aggressivt med vilje |
+| 2 | 285 000 | Kun etter mottilbud |
+| 3 | 294 000 | Under begge de andre 2024-ene |
+| Siste | 297 400 | Presist tall, signaliserer tak |
 
-Walk-away 299 500. Over det er 473616501 et bedre kjøp på rene tall.
+Walk-away **299 500**. Over det er 473616501 et bedre kjøp på rene tall.
 
-Realistisk landing **295 000-300 000**, altså 9 000-14 000 spart. Bilen er
-riktig priset, og 9 dagers liggetid gir lite tidspress, så det er taket på hva
-ren prispressing gir her.
+**Fase 2, nibble.** Først når prisen er avtalt:
+
+> Flott, da er vi enige om [pris]. Jeg signerer i dag. Da regner jeg med at
+> batterirapporten fra BYD, en fersk service før overlevering og full lading
+> med alle ladekabler følger med?
+
+Batterirapport, service, transport og full lading er samlet verdt
+10 000-20 000 kr, og koster forhandleren en brøkdel av det. Nibble fungerer
+omtrent seks av ti ganger. Én runde, så stopper vi.
+
+Samlet mål: **297 000 eller lavere, pluss 10 000-20 000 i ytelser.**
 
 ## Det største enkelttallet
 

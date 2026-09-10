@@ -1,12 +1,15 @@
 # Meldinger til STAR BIL AS - finnkode 461004495
 
-Send i rekkefølge, vent på svar mellom hver. Melding 1 er sendt.
+Send i rekkefølge, vent på svar mellom hver.
+
+**Rekkefølgen er hele poenget.** Pris først, ytelser til slutt. Nevnes
+ytelsene mens prisen fortsatt er åpen, blir de betalingsmiddel og du betaler
+for dem. Nevnes de først når prisen er avtalt, er de nesten gratis. Se
+`.claude/skills/car-negotiation/references/nibble.md`.
 
 ---
 
 ## Melding 1 - åpning ✅ SENDT 10.09.2026 09:20
-
-Henter informasjon, gir ingenting. Ingen tall.
 
 > Hei! Jeg ser på Atto 3-en dere har liggende (finnkode 461004495) og er
 > konkret interessert.
@@ -21,9 +24,11 @@ Henter informasjon, gir ingenting. Ingen tall.
 
 ---
 
-## Melding 2 - hovedbudet, pris
+# FASE 1 - PRIS
 
-Send etter svar på melding 1. Målet er kroner, ikke ytelser.
+Ingen ønsker om ytelser i disse meldingene.
+
+## Melding 2 - åpningsbudet
 
 > Takk for raske svar.
 >
@@ -35,10 +40,11 @@ Send etter svar på melding 1. Målet er kroner, ikke ytelser.
 > | 473616501 | 12 193 | 299 500 |
 > | 467995724 | 27 903 | 299 000 |
 >
-> Deres ligger 9 500-10 000 kr over begge, og 467995724 har ligget ute siden
-> juli uten å bli solgt.
+> Dere ligger 9 500-10 000 kr over begge to, og 467995724 har ligget ute
+> siden juli uten å bli solgt. Med Evo-modellen i markedet faller
+> restverdiene på 2024-årgangen raskt.
 >
-> Jeg kan tilby **279 000 kr**. Jeg signerer denne uken, betaler kontant, har
+> Jeg kan tilby **269 000 kr**. Jeg signerer denne uken, betaler kontant, har
 > ingen forbehold om finansiering og skal ikke bytte inn noe.
 >
 > Kan dere også sende understellsnummeret (VIN)? Jeg vil verifisere
@@ -46,58 +52,63 @@ Send etter svar på melding 1. Målet er kroner, ikke ytelser.
 
 Så stopper du. Ikke følg opp på tre dager.
 
----
-
 ## Melding 3 - andre trinn
 
-Bare etter at de har kommet med et mottilbud. Aldri by mot deg selv.
+Bare etter mottilbud. Aldri by mot deg selv.
 
-> Takk. Jeg kan strekke meg til **291 000 kr**.
->
-> Det er fortsatt under de to andre 2024-ene, men jeg tar høyde for at dere
-> har vinterdekk med og lavere kilometerstand.
+> Takk. Jeg kan strekke meg til **285 000 kr**.
 
----
+## Melding 4 - kalibrert spørsmål
 
-## Melding 4 - tredje trinn
-
-> **297 000 kr.** Nå er jeg på nivå med 473616501, og den har 2 000 km mer.
-
----
-
-## Melding 5 - kalibrert spørsmål i stedet for å heve
-
-Bruk denne hvis de står på sitt, i stedet for å bruke et trinn.
+Bruk denne i stedet for å bruke et trinn, hvis de står på sitt.
 
 > Hvordan skal jeg få det til å henge sammen når 467995724 ligger på 299 000
 > og har ligget ute siden juli?
 
----
+## Melding 5 - tredje trinn
+
+> **294 000 kr.** Da er jeg under begge de andre 2024-ene, og dere har en bil
+> som ikke har blitt solgt på ni dager i et marked der Evo-en tar kundene.
 
 ## Melding 6 - siste bud
 
-> Da lander jeg på **298 600 kr**. Det er min grense.
+> Da lander jeg på **297 400 kr**. Det er min grense.
 >
 > Jeg henter bilen selv i Skien og signerer i morgen.
 >
 > Hvis det ikke passer er det helt greit. Tilbudet står ut fredag.
 
-Bare skriv siste setning hvis du faktisk er villig til å gå.
-
----
+Siste setning bare hvis du faktisk er villig til å gå. Walk-away er 299 500.
 
 ## Melding 7 - hvis de sier prisen er fast
 
 > Forstår. Tilbudet står ut fredag hvis dere ombestemmer dere. Lykke til med
 > salget!
 
-Så full stillhet. Dette virker oftere enn noe argument.
+Full stillhet etterpå. Dette virker oftere enn noe argument.
 
 ---
 
-## Melding 8 - aksept
+# FASE 2 - YTELSENE
 
-> Da er vi enige: **[tall] kr** levert.
+**Send først når prisen er avtalt.** Dette er nibble-fasen: små ønsker etter
+at hovedavtalen er i havn, formulert som forutsetninger og ikke som krav.
+Forhandleren er allerede mentalt ferdig med handelen og vil ikke rive den opp
+for en service.
+
+## Melding 8 - nibble
+
+> Flott, da er vi enige om **[avtalt pris]**. Jeg signerer i dag.
+>
+> Da regner jeg med at batterirapporten fra BYD, en fersk service før
+> overlevering og full lading med alle ladekabler følger med?
+
+Én pust, alle punktene samlet. "Jeg regner med at" slår "kan dere også".
+Én runde, så stopper du. Å nibble to ganger leser som uærlighet.
+
+## Melding 9 - aksept og kontrakt
+
+> Da er vi i mål: **[pris]** levert.
 >
 > Jeg foreslår NAFs standard kjøpekontrakt. Kan dere bekrefte at følgende
 > følger med: begge dekksett på alufelg, to nøkler, alle ladekabler,
@@ -105,4 +116,5 @@ Så full stillhet. Dette virker oftere enn noe argument.
 >
 > Når passer overlevering?
 
-Få alt skriftlig før overlevering.
+Alt skriftlig før overlevering. En ladekabel man krangler om etterpå er en
+ladekabel man kjøper selv.

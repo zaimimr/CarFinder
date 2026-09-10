@@ -30,7 +30,9 @@ me, and a number he never saw is a commitment he never made.
    tyres, SOH. `references/leverage.md`.
 4. **Set three numbers**: opening, target, walk-away. Never start without a
    walk-away you will actually honour.
-5. **Draft the ladder.** `references/ackerman.md`.
+5. **Draft the ladder.** `references/ackerman.md`. If extras are wanted too,
+   keep them out of every message until the price is settled, then nibble:
+   `references/nibble.md`.
 6. **Show Zaim. Get the yes. Send.**
 7. **Log the exchange** in `NEGOTIATION.md` so the next message knows what the
    last one said.
@@ -88,4 +90,5 @@ Deception is a different thing and it is off the table.
 - `references/valuation.md` — pricing a listing against the market
 - `references/norway-legal.md` — consumer law, fees, contracts, inspection
 - `references/byd-atto-3.md` — model facts, standard equipment, warranty
+- `references/nibble.md` — how to get price *and* extras: sequence, never bundle
 - `references/templates.md` — message drafts in bokmål
