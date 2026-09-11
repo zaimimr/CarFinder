@@ -174,6 +174,24 @@ whatever was agreed in writing immediately afterwards ("Takk for praten — for
 ordens skyld, vi ble enige om ..."). An unconfirmed verbal agreement is not
 an agreement.
 
+## "Avregistrert" on a dealer car
+
+A vegvesen lookup showing **"Kjøretøyet er avregistrert og kan ikke brukes"**
+on a dealer's stock car is normal, not alarming. Dealers deregister inventory
+so they stop paying insurance and road tax while it sits on the lot.
+
+What it does tell you:
+
+- The car is genuinely sitting in stock, corroborating days-on-market.
+- The dealer is carrying it as a cost, which is mild pressure in your favour.
+- It cannot be road-tested until re-registered. The dealer will use prøveskilt
+  for a test drive; make sure a test drive is actually arranged rather than
+  assumed.
+- Re-registration is part of what the buyer handles at handover.
+
+On a **private** seller's car the same status is worth a question, since
+private owners rarely deregister a car they are still using.
+
 ## Import from Germany: checked, does not work for this car
 
 Worth recording as a negative result so it is not re-investigated every time

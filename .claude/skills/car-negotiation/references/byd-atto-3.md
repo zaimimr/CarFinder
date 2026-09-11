@@ -51,10 +51,19 @@ variant, in any market, with anything other than a Blade LFP pack.
 2. **Ask for the VIN (understellsnummer).** Positions 4-8 read `DB16B` on an
    Atto 3. The WMI (first three) is `LVV` for the Shenzhen plant or `LSV` for
    Xi'an, Changsha or Hefei. Battery capacity is encoded in the VDS section.
-3. **Statens vegvesen "Sjekk kjøretøy"** by registration number gives the
-   registered technical data including battery capacity.
+3. **Statens vegvesen "Sjekk kjøretøy"** by registration number. Checked on a
+   real Atto 3 (EJ 53737) in September 2026: the register lists electric range,
+   power, axles, fuel type and hybrid status, but **not battery capacity and
+   not cell chemistry**. So it confirms which variant the car is
+   (420 km + 150 kW = the 60.48 kWh extended-range car) without naming the
+   pack. Useful corroboration, not direct proof.
+   Note the page's terms: data pulled mechanically from vegvesen "kan ikke
+   videreformidles fritt". One lookup for your own prospective purchase is the
+   intended use; do not bulk-query or republish.
 4. **A BYD workshop battery report (SOH).** Names the pack directly, and you
-   want this report anyway for condition. This is the definitive document.
+   want this report anyway for condition. **This is the only definitive
+   document** — the VIN and the vegvesen lookup both identify the variant, but
+   the workshop report is what actually states the pack.
 
 Asking a seller "does it have the Blade battery?" still signals no homework,
 because the answer is always yes. Asking for the **VIN and the SOH report**

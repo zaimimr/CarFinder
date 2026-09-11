@@ -130,6 +130,29 @@ Annonsetittelen oppgir **Design**-nivå. Bilen har altså elektrisk bakluke og
 Comfort og Design. Utstyrslisten på Finn nevner ingen av delene, noe som
 bekrefter at korte utstyrslister ikke kan leses som mangler.
 
+## Verifisering fra Statens vegvesen (reg.nr. EJ 53737)
+
+Oppslag 11.09.2026:
+
+| Felt | Verdi |
+|---|---|
+| Elektrisk rekkevidde | 420 km |
+| Motorytelse | 150 kW (204 hk) |
+| Drivstoff | Elektrisk, hybrid: nei |
+| Drivaksler | 1 av 2 (forhjulsdrift) |
+| Status | **Avregistrert** |
+
+420 km og 150 kW bekrefter at dette er 60,48 kWh-varianten, altså
+langdistanse-Blade. Registeret oppgir verken batterikapasitet eller
+cellekjemi, så dette er bekreftelse av variant, ikke direkte bevis på pakken.
+Endelig dokumentasjon er SOH-rapporten fra BYD-verksted, som Thomas allerede
+har sagt kan skaffes.
+
+Avregistrert er normalt for lagerbil hos forhandler: de slipper forsikring og
+årsavgift mens bilen står. Men det betyr at bilen ikke kan prøvekjøres før den
+er registrert på nytt - forhandleren må bruke prøveskilt. Avtal prøvekjøring
+eksplisitt.
+
 ## Logg
 
 **11.09.2026 - melding 2 sendt. Forankret på 259 000 kr.** Thomas hadde da
