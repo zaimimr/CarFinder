@@ -132,6 +132,13 @@ bekrefter at korte utstyrslister ikke kan leses som mangler.
 
 ## Logg
 
+**11.09.2026 - melding 2 sendt. Forankret på 259 000 kr.** Thomas hadde da
+svart på nøkler (ja, to), sagt at SOH-rapport "kan enkelt skaffes", oppgitt
+serviceintervall uten å si om servicen er gjort, og tilbudt transport via
+Axxess. Mønsterdybde og VIN fortsatt ubesvart.
+
+Neste trinn er 281 000, og bare etter at de har kommet med et mottilbud.
+
 **10.09.2026 13:15 - Thomas svarte.** Ba om telefonsamtale, besvarte ingen av
 de fem spørsmålene. Vi utsatte telefonen skriftlig og gjentok spørsmålene
 (melding 1b, sendt 13:20). Ingen tall nevnt ennå.
