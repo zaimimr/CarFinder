@@ -100,6 +100,39 @@ converts your patience into their uncertainty.
 Get the inclusions in writing before handover. A charge cable argued about
 afterwards is a charge cable you buy yourself.
 
+## Register: match the seller, don't out-formal them
+
+Norwegian car sellers write casually. Thomas at Star Bil opens with "Heisann",
+signs "Mvh. Thomas" and puts 😊 in every message. Answering that with bullet
+lists, tables and "i første omgang" reads as a corporate procurement
+department and creates distance exactly where you want rapport.
+
+Mirroring a counterpart's communication style raises liking and agreement
+rates. It is free, and it costs nothing in substance.
+
+**Casual wrapper, same steel underneath.** The numbers, the finnkoder and the
+walk-away do not soften. Only the packaging does. A warm delivery actually
+makes a low number land better, because it does not read as an insult — which
+matters when the risk is the seller disengaging.
+
+Norwegian everyday register that works:
+
+| Instead of | Write |
+|---|---|
+| "Jeg kan tilby 281 000 kr." | "Jeg kan strekke meg til 281 000." |
+| "Vennligst bekreft" | "Si ifra" |
+| "Det er min grense." | "Der stopper det for min del." |
+| "Jeg er interessert i å gjennomføre kjøpet." | "Jeg er klar til å slå til." |
+| "Dette er akseptabelt." | "Helt greit!" |
+| "Med vennlig hilsen" | "Ha en fin helg!" |
+
+Avoid: five-bullet question lists, markdown tables (they arrive as mush in
+email anyway), "Mvh" on every single message, "vennligst", stacked formal
+connectives.
+
+Use one emoji occasionally if they do, never in every message. Overdoing it
+reads as trying too hard, which is its own kind of distance.
+
 ## Tone notes
 
 - Norwegian used car culture is low-drama and fairly transparent. Politeness

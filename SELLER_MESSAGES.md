@@ -2,6 +2,17 @@
 
 Send i rekkefølge, vent på svar mellom hver.
 
+**Tone: dagligtale, ikke forretningsnorsk.** Thomas skriver uformelt og bruker
+😊 hele veien. Speil det. Korte setninger, sammentrekninger, "si ifra", "slå
+til", "helt greit". Ett emoji av og til, ikke i hver melding.
+
+Innholdet endrer seg ikke av den grunn. Tallene, finnkodene og grensene står
+like hardt – det er bare innpakningen som er avslappet. En vennlig tone gjør
+faktisk at et lavt tall lander bedre, fordi det ikke leses som en fornærmelse.
+
+Unngå: punktlister med fem kulepunkter, tabeller, "Mvh" på hver melding,
+"vennligst", "i første omgang", "til gjengjeld" i annenhver setning.
+
 **Rekkefølgen er hele poenget.** Pris først, ytelser til slutt. Nevnes
 ytelsene mens prisen fortsatt er åpen, blir de betalingsmiddel og du betaler
 for dem. Nevnes de først når prisen er avtalt, er de nesten gratis. Se
@@ -119,69 +130,76 @@ Så stopper du. Ikke følg opp på tre dager.
 
 Bare etter mottilbud. Aldri by mot deg selv.
 
-> Takk. Jeg kan strekke meg til **281 000 kr**.
+> Hei igjen Thomas!
+>
+> Takk for at du tok den runden. Jeg kan strekke meg til 281 000 – da har jeg
+> beveget meg et godt stykke.
+>
+> Si ifra hva du tenker 😊
 
 ## Melding 4 - kalibrert spørsmål
 
-Bruk denne i stedet for å bruke et trinn, hvis de står på sitt.
+Bruk denne i stedet for å bruke et trinn, hvis han står på sitt.
 
-> Hvordan skal jeg få det til å henge sammen når 467995724 ligger på 299 000
-> og har ligget ute siden juli?
+> Hei Thomas!
+>
+> Jeg skjønner at du har en pris du skal forsvare. Men hjelp meg litt her –
+> hvordan får jeg det til å gå opp når 467995724 ligger på 299 000 og har
+> stått ute siden juli?
+>
+> Er det noe rom, eller står dere helt fast?
 
 ## Melding 5 - tredje trinn
 
-> **292 000 kr.** Da er jeg under begge de andre 2024-ene, og dere har en bil
-> som ikke har blitt solgt i et marked der Evo-en tar kundene.
+> Ok, da går jeg til 292 000.
+>
+> Da ligger jeg under begge de andre 2024-ene, og du har en bil som ikke har
+> gått unna enda mens Evo-en tar kundene. Jeg er klar til å slå til med en
+> gang.
 
 ## Melding 6 - siste bud
 
-> Da lander jeg på **296 200 kr**. Det er min grense.
+> Hei Thomas!
 >
-> Jeg henter bilen selv i Skien og signerer i morgen.
+> Jeg skal være ærlig med deg: 296 200 er der det stopper for min del. Det er
+> ikke et forhandlingstriks, det er rett og slett taket mitt.
 >
-> Hvis det ikke passer er det helt greit. Tilbudet står ut fredag.
-
-Siste setning bare hvis du faktisk er villig til å gå. Walk-away er 299 500.
-
-**Tegn på at vi har presset for hardt:** ettordssvar, brudd på svarmønsteret
-deres, eller "prisen er fast" uten noe mer. Da holder vi tallet og går stille.
-Å heve rett etter et kaldt svar lærer dem at kulde virker.
-
-## Melding 7 - hvis de sier prisen er fast
-
-> Forstår. Tilbudet står ut fredag hvis dere ombestemmer dere. Lykke til med
-> salget!
-
-Full stillhet etterpå. Dette virker oftere enn noe argument.
-
----
-
-# FASE 2 - YTELSENE
-
-**Send først når prisen er avtalt.** Dette er nibble-fasen: små ønsker etter
-at hovedavtalen er i havn, formulert som forutsetninger og ikke som krav.
-Forhandleren er allerede mentalt ferdig med handelen og vil ikke rive den opp
-for en service.
-
-## Melding 8 - nibble
-
-> Flott, da er vi enige om **[avtalt pris]**. Jeg signerer i dag.
+> Til gjengjeld gjør jeg det enkelt for dere – jeg kommer og henter den selv
+> i Skien, og kan signere med en gang.
 >
-> Da regner jeg med at batterirapporten fra BYD, en fersk service før
-> overlevering, full lading og alle ladekabler følger med?
+> Passer det ikke, så er det helt greit, da får jeg finne noe annet. Men jeg
+> hadde helst kjøpt denne 😊 Tilbudet står ut fredag.
 
-Én pust, alle punktene samlet. "Jeg regner med at" slår "kan dere også".
-Én runde, så stopper du. Å nibble to ganger leser som uærlighet.
+Siste avsnitt bare hvis du faktisk er villig til å gå.
+
+## Melding 7 - hvis han sier prisen er fast
+
+> Helt greit, Thomas! Da lar jeg den ligge, men tilbudet mitt står ut fredag
+> hvis dere snur.
+>
+> Lykke til med salget 😊
+
+Så full stillhet. Ikke følg opp.
+
+## Melding 8 - nibble, når prisen er avtalt
+
+> Nice, da er vi enige om [pris] 😊 Jeg signerer med en gang.
+>
+> Da regner jeg med at batterirapporten fra BYD, en fersk service før jeg
+> henter den og full lading med alle kablene følger med?
+
+Én pust, alt samlet. "Jeg regner med at" slår "kan dere også". Én runde, så
+stopper du.
 
 ## Melding 9 - aksept og kontrakt
 
-> Da er vi i mål: **[pris]** levert.
+> Da er vi i mål 😊 [pris] levert.
 >
-> Jeg foreslår NAFs standard kjøpekontrakt. Kan dere bekrefte at følgende
-> følger med: begge dekksett på alufelg, to nøkler, alle ladekabler,
-> [batterirapport / service hvis avtalt]?
+> Skal vi bruke NAF sin standardkontrakt? Og bare så vi har det svart på
+> hvitt: begge dekksett på alufelg, to nøkler, alle ladekabler,
+> [batterirapport / service hvis avtalt] følger med.
 >
-> Når passer overlevering?
+> Når passer det for dere med overlevering? Jeg er fleksibel.
 
 Alt skriftlig før overlevering. En ladekabel man krangler om etterpå er en
 ladekabel man kjøper selv.
